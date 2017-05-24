@@ -116,11 +116,15 @@ ActiveRecord::Schema.define(version: 20170521164818) do
   end
 
   create_table "users", force: :cascade do |t|
+    t.string "username"
     t.string "email"
-    t.string "password"
+    t.string "password_digest"
+    t.boolean "inactive"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["email"], name: "index_users_on_email"
+    t.index ["inactive"], name: "index_users_on_inactive"
+    t.index ["username"], name: "index_users_on_username"
   end
 
 end
