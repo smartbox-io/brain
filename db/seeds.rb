@@ -5,3 +5,12 @@
 #
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
+
+if !Rails.env.production?
+
+  User.find_or_create_by(username: "test") do |user|
+    user.email = "test@example.com"
+    user.password = "test"
+  end
+
+end

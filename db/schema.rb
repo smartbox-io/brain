@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170521164818) do
+ActiveRecord::Schema.define(version: 20170524185947) do
 
   create_table "cell_tags", force: :cascade do |t|
     t.integer "cell_id"
@@ -77,6 +77,14 @@ ActiveRecord::Schema.define(version: 20170521164818) do
     t.datetime "updated_at", null: false
     t.index ["user_id"], name: "index_full_objects_on_user_id"
     t.index ["uuid"], name: "index_full_objects_on_uuid"
+  end
+
+  create_table "refresh_tokens", force: :cascade do |t|
+    t.integer "user_id"
+    t.string "token"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["token"], name: "index_refresh_tokens_on_token", unique: true
   end
 
   create_table "sync_tokens", force: :cascade do |t|
