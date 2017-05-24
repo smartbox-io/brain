@@ -1,7 +1,5 @@
 version: '2'
 services:
-  db:
-    image: mysql
   mongodb:
     image: mongo
   redis:
@@ -14,6 +12,5 @@ services:
     ports:
       - "3000:3000"
     depends_on:
-      - db
       - mongodb
       - redis
