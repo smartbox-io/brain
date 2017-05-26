@@ -1,6 +1,6 @@
 class Api::V1::SessionsController < ApplicationController
 
-  before_action :load_jwt, only: %i(update destroy)
+  skip_before_action :load_jwt, only: :create
 
   rescue_from ActiveRecord::RecordNotFound, with: :forbidden
 
@@ -30,13 +30,6 @@ class Api::V1::SessionsController < ApplicationController
   end
 
   private
-
-  def load_jwt
-    jwt = authenticate_or_request_with_http_token do |jwt, options|
-      JWTUtils.decode jwt: jwt
-    end
-    @user = User.find jwt[:payload][:user_id]
-  end
 
   def render_access_token(user:)
     access_token, expires_in = JWTUtils.encode payload: { user_id: user.id }

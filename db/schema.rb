@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170524185947) do
+ActiveRecord::Schema.define(version: 20170527192000) do
 
   create_table "cell_tags", force: :cascade do |t|
     t.integer "cell_id"
@@ -21,11 +21,20 @@ ActiveRecord::Schema.define(version: 20170524185947) do
     t.index ["tag_id"], name: "index_cell_tags_on_tag_id"
   end
 
+  create_table "cell_volumes", force: :cascade do |t|
+    t.integer "cell_id"
+    t.string "mountpoint"
+    t.integer "total_capacity"
+    t.integer "available_capacity"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["cell_id"], name: "index_cell_volumes_on_cell_id"
+  end
+
   create_table "cells", force: :cascade do |t|
     t.string "uuid"
     t.string "fqdn"
-    t.integer "total_capacity"
-    t.integer "available_capacity"
+    t.string "ip_address"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["uuid"], name: "index_cells_on_uuid"
@@ -71,6 +80,9 @@ ActiveRecord::Schema.define(version: 20170524185947) do
     t.string "uuid"
     t.integer "size"
     t.string "name"
+    t.string "md5sum"
+    t.string "sha128sum"
+    t.string "sha256sum"
     t.integer "backup_size"
     t.integer "replica_size"
     t.datetime "created_at", null: false
@@ -85,6 +97,7 @@ ActiveRecord::Schema.define(version: 20170524185947) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["token"], name: "index_refresh_tokens_on_token", unique: true
+    t.index ["user_id"], name: "index_refresh_tokens_on_user_id"
   end
 
   create_table "sync_tokens", force: :cascade do |t|
@@ -127,6 +140,8 @@ ActiveRecord::Schema.define(version: 20170524185947) do
     t.string "username"
     t.string "email"
     t.string "password_digest"
+    t.integer "upload_rate_limit"
+    t.integer "download_rate_limit"
     t.boolean "inactive"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false

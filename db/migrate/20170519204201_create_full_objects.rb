@@ -5,6 +5,9 @@ class CreateFullObjects < ActiveRecord::Migration[5.1]
       t.string :uuid, index: true
       t.integer :size
       t.string :name
+      t.string :md5sum
+      t.string :sha128sum
+      t.string :sha256sum
       t.integer :backup_size
       t.integer :replica_size
       t.timestamps
