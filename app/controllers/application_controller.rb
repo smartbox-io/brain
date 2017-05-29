@@ -6,6 +6,10 @@ class ApplicationController < ActionController::API
 
   private
 
+  def forbidden
+    head :forbidden
+  end
+
   def load_jwt
     jwt = authenticate_or_request_with_http_token do |jwt, options|
       JWTUtils.decode jwt: jwt

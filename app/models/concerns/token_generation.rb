@@ -6,6 +6,6 @@ module TokenGeneration
   end
 
   def __generate_token
-    self.token ||= SecureRanom.hex 64
+    self.token ||= SecureRandom.hex 64
   end
 end

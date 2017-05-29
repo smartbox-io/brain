@@ -5,5 +5,5 @@ class SyncToken < ApplicationRecord
   belongs_to :target_cell, class_name: "Cell"
   belongs_to :full_object
 
-  enum status: [:scheduled, :syncing, :ok]
+  enum status: [:scheduled, :syncing, :done]
 end

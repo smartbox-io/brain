@@ -5,11 +5,11 @@ class UploadToken < ApplicationRecord
   belongs_to :user
   belongs_to :cell
 
-  before_create :assign_cell
+  before_validation :assign_cell, on: :create
 
   private
 
   def assign_cell
-    self.cell = Cell.all.sample
+    self.cell ||= Cell.healthy.sample
   end
 end

@@ -11,6 +11,14 @@ services:
       - .:/brain
     ports:
       - "3000:3000"
-    depends_on:
+    links:
+      - mongodb
+      - redis
+  worker1:
+    build: .
+    command: bundle exec sidekiq
+    volumes:
+      - .:/brain
+    links:
       - mongodb
       - redis

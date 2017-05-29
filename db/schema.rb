@@ -10,7 +10,19 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170527192000) do
+ActiveRecord::Schema.define(version: 20170529190434) do
+
+  create_table "admins", force: :cascade do |t|
+    t.string "username"
+    t.string "email"
+    t.string "password_digest"
+    t.boolean "inactive"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["email"], name: "index_admins_on_email"
+    t.index ["inactive"], name: "index_admins_on_inactive"
+    t.index ["username"], name: "index_admins_on_username"
+  end
 
   create_table "cell_tags", force: :cascade do |t|
     t.integer "cell_id"
@@ -35,6 +47,7 @@ ActiveRecord::Schema.define(version: 20170527192000) do
     t.string "uuid"
     t.string "fqdn"
     t.string "ip_address"
+    t.integer "status"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["uuid"], name: "index_cells_on_uuid"

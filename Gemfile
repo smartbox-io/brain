@@ -14,6 +14,7 @@ gem 'redis', '~> 3.0'
 gem 'mongoid', '~> 6.1'
 gem 'bcrypt', '~> 3.1.7'
 gem 'jwt', '~> 1.5'
+gem 'sidekiq', '~> 5.0'
 
 group :development, :test do
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]

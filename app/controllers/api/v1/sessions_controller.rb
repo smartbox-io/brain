@@ -9,7 +9,7 @@ class Api::V1::SessionsController < ApplicationController
     if user.try :authenticate, params[:password]
       render_access_token user: user
     else
-      head :forbidden
+      forbidden
     end
   end
 
@@ -17,7 +17,7 @@ class Api::V1::SessionsController < ApplicationController
     if @user.refresh_tokens.where(token: params[:refresh_token]).delete_all == 1
       render_access_token user: @user
     else
-      head :forbidden
+      forbidden
     end
   end
 
@@ -25,7 +25,7 @@ class Api::V1::SessionsController < ApplicationController
     if @user.refresh_tokens.where(token: params[:refresh_token]).delete_all == 1
       head :ok
     else
-      head :forbidden
+      forbidden
     end
   end
 
