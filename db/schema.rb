@@ -21,7 +21,7 @@ ActiveRecord::Schema.define(version: 20170529190434) do
     t.datetime "updated_at", null: false
     t.index ["email"], name: "index_admins_on_email"
     t.index ["inactive"], name: "index_admins_on_inactive"
-    t.index ["username"], name: "index_admins_on_username"
+    t.index ["username"], name: "index_admins_on_username", unique: true
   end
 
   create_table "cell_tags", force: :cascade do |t|
@@ -160,7 +160,7 @@ ActiveRecord::Schema.define(version: 20170529190434) do
     t.datetime "updated_at", null: false
     t.index ["email"], name: "index_users_on_email"
     t.index ["inactive"], name: "index_users_on_inactive"
-    t.index ["username"], name: "index_users_on_username"
+    t.index ["username"], name: "index_users_on_username", unique: true
   end
 
 end
