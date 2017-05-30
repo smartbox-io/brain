@@ -157,6 +157,7 @@ DEPENDENCIES
   spring
   spring-watcher-listen (~> 2.0.0)
   sqlite3
+  thor (~> 0.19)
   tzinfo-data
 
 BUNDLED WITH

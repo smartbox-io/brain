@@ -6,3 +6,4 @@ ADD Gemfile /brain/Gemfile
 ADD Gemfile.lock /brain/Gemfile.lock
 RUN bundle install
 ADD . /brain
+ENV PATH "/brain/bin:${PATH}"
