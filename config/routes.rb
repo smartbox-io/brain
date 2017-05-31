@@ -29,8 +29,8 @@ Rails.application.routes.draw do
           resource :converge, only: :create, controller: "objects/converge"
         end
       end
-      resources :upload_tokens, path: "upload-tokens", param: :uuid, only: :show
-      resources :download_tokens, path: "download-tokens", param: :uuid, only: :show
+      resources :upload_tokens, path: "upload-tokens", param: :token, only: :show
+      resources :download_tokens, path: "download-tokens", param: :token, only: :show
     end
   end
   namespace :admin_api, path: "admin-api" do
