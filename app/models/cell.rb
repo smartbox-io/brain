@@ -6,4 +6,9 @@ class Cell < ApplicationRecord
   has_many :sync_target_tokens, foreign_key: :target_cell_id, class_name: "SyncToken", dependent: :destroy
 
   enum status: [:discovered, :healthy, :unhealthy]
+
+  def accept
+    return false if self.status != "discovered"
+    self.update_column :status, :healthy
+  end
 end

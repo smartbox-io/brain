@@ -1,25 +1,48 @@
 require "thor"
 require "io/console"
 
-class CLI < Thor
-
-  desc "create-admin USERNAME EMAIL", "Creates an admin user"
-  def create_admin(username, email)
+class AdminCLI < Thor
+  desc "create USERNAME EMAIL", "Creates an admin user"
+  def create(username, email)
     if ask_admin_credentials
-      password = ask_new_password
+      password = CLI.ask_new_password
       Admin.create! username: username,
                     email: email,
                     password: password
     end
   end
 
-  desc "disable-admin USERNAME", "Disables an admin user"
-  def disable_admin(username)
+  desc "disable USERNAME", "Disables an admin user"
+  def disable(username)
+  end
+end
+
+class CellCLI < Thor
+  desc "ls", "List cells"
+  def ls
+    table = Terminal::Table.new(headings: ["UUID", "FQDN", "IP Address", "Status", "Created at"]) do |t|
+      Cell.all.each do |cell|
+        t << [cell.uuid, cell.fqdn, cell.ip_address, cell.status, cell.created_at]
+      end
+    end
+    puts table
   end
 
-  private
+  desc "accept UUID", "Accept cell with uuid UUID, so it can join the cluster"
+  def accept(uuid)
+    cell = Cell.find_by! uuid: params[:uuid]
+    cell.accept
+  end
+end
 
-  def ask_admin_credentials
+class CLI < Thor
+  desc "admin SUBCOMMAND", "Manage admin accounts"
+  subcommand "admin", AdminCLI
+
+  desc "cell SUBCOMMAND", "Manage cells"
+  subcommand "cell", CellCLI
+
+  def self.ask_admin_credentials
     return true if Admin.count == 0
     puts "Please, enter your administrator credentials:"
     STDOUT.print "Username: "
@@ -39,7 +62,7 @@ class CLI < Thor
     end
   end
 
-  def ask_new_password
+  def self.ask_new_password
     puts "Please, enter the new password:"
     password = nil
     loop do
