@@ -37,6 +37,14 @@ class CellCLI < Thor
       puts "Cell wasn't accepted successfully (was it already accepted?)"
     end
   end
+
+  desc "decomission UUID", "Decomissions cell with uuid UUID"
+  def decomission(uuid)
+  end
+
+  desc "pause UUID", "Pauses cell with uuid UUID"
+  def pause(uuid)
+  end
 end
 
 class CLI < Thor
