@@ -8,4 +8,12 @@ class ClusterApi::V1::DownloadTokensController < ClusterApplicationController
     forbidden
   end
 
+  def destroy
+    current_user.download_tokens.destroy_all token: params[:token],
+                                             cell: @cell
+    ok
+  rescue ActiveRecord::RecordNotFound
+    not_found
+  end
+
 end
