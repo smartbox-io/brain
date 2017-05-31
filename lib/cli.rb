@@ -30,8 +30,12 @@ class CellCLI < Thor
 
   desc "accept UUID", "Accept cell with uuid UUID, so it can join the cluster"
   def accept(uuid)
-    cell = Cell.find_by! uuid: params[:uuid]
-    cell.accept
+    cell = Cell.find_by! uuid: uuid
+    if cell.accept
+      puts "Cell accepted successfully"
+    else
+      puts "Cell wasn't accepted successfully (was it already accepted?)"
+    end
   end
 end
 
