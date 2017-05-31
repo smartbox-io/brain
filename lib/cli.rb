@@ -21,8 +21,8 @@ class CellCLI < Thor
   desc "ls", "List cells"
   def ls
     table = Terminal::Table.new(headings: ["UUID", "FQDN", "IP Address", "Status", "Created at"]) do |t|
-      Cell.all.each do |cell|
-        t << [cell.uuid, cell.fqdn, cell.ip_address, cell.status, cell.created_at]
+      Cell.pluck(:uuid, :fqdn, :ip_address, :status, :created_at).each do |uuid, fqdn, ip_address, status, created_at|
+        t << [uuid, fqdn, ip_address, status, created_at]
       end
     end
     puts table
