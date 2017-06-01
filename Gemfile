@@ -16,7 +16,8 @@ gem 'bcrypt', '~> 3.1.7'
 gem 'jwt', '~> 1.5'
 gem 'sidekiq', '~> 5.0'
 gem 'thor', '~> 0.19'
-gem 'terminal-table'
+gem 'terminal-table', '~> 1.8'
+gem 'multipart-post', '~> 2.0'
 
 group :development, :test do
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]

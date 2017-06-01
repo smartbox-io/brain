@@ -58,10 +58,12 @@ ActiveRecord::Schema.define(version: 20170529190434) do
     t.integer "full_object_id"
     t.integer "user_id"
     t.integer "cell_id"
+    t.integer "cell_volume_id"
     t.string "remote_ip"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["cell_id"], name: "index_download_tokens_on_cell_id"
+    t.index ["cell_volume_id"], name: "index_download_tokens_on_cell_volume_id"
     t.index ["full_object_id"], name: "index_download_tokens_on_full_object_id"
     t.index ["token"], name: "index_download_tokens_on_token"
     t.index ["user_id"], name: "index_download_tokens_on_user_id"
@@ -70,11 +72,13 @@ ActiveRecord::Schema.define(version: 20170529190434) do
   create_table "full_object_replicas", force: :cascade do |t|
     t.integer "full_object_id"
     t.integer "cell_id"
+    t.integer "cell_volume_id"
     t.integer "status"
     t.boolean "is_backup"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["cell_id"], name: "index_full_object_replicas_on_cell_id"
+    t.index ["cell_volume_id"], name: "index_full_object_replicas_on_cell_volume_id"
     t.index ["full_object_id"], name: "index_full_object_replicas_on_full_object_id"
     t.index ["status"], name: "index_full_object_replicas_on_status"
   end
@@ -116,15 +120,19 @@ ActiveRecord::Schema.define(version: 20170529190434) do
   create_table "sync_tokens", force: :cascade do |t|
     t.string "token"
     t.integer "source_cell_id"
+    t.integer "source_cell_volume_id"
     t.integer "target_cell_id"
+    t.integer "target_cell_volume_id"
     t.integer "full_object_id"
     t.integer "status"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["full_object_id"], name: "index_sync_tokens_on_full_object_id"
     t.index ["source_cell_id"], name: "index_sync_tokens_on_source_cell_id"
+    t.index ["source_cell_volume_id"], name: "index_sync_tokens_on_source_cell_volume_id"
     t.index ["status"], name: "index_sync_tokens_on_status"
     t.index ["target_cell_id"], name: "index_sync_tokens_on_target_cell_id"
+    t.index ["target_cell_volume_id"], name: "index_sync_tokens_on_target_cell_volume_id"
     t.index ["token"], name: "index_sync_tokens_on_token"
   end
 
@@ -141,10 +149,12 @@ ActiveRecord::Schema.define(version: 20170529190434) do
     t.string "token"
     t.integer "user_id"
     t.integer "cell_id"
+    t.integer "cell_volume_id"
     t.string "remote_ip"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["cell_id"], name: "index_upload_tokens_on_cell_id"
+    t.index ["cell_volume_id"], name: "index_upload_tokens_on_cell_volume_id"
     t.index ["token"], name: "index_upload_tokens_on_token"
     t.index ["user_id"], name: "index_upload_tokens_on_user_id"
   end
