@@ -10,9 +10,9 @@ class ClusterApi::V1::DownloadTokensController < ClusterApplicationController
   end
 
   def destroy
-    current_user.download_tokens.destroy_all token: params[:token],
-                                             cell: @cell,
-                                             remote_ip: params[:client_ip]
+    current_user.download_tokens.where(token: params[:token],
+                                       cell: @cell,
+                                       remote_ip: params[:client_ip]).destroy_all
     ok
   rescue ActiveRecord::RecordNotFound
     not_found
