@@ -13,7 +13,8 @@ class ClusterApi::V1::UploadTokensController < ClusterApplicationController
 
   def destroy
     current_user.upload_tokens.destroy_all token: params[:token],
-                                           cell: @cell
+                                           cell: @cell,
+                                           remote_ip: params[:client_ip]
     ok
   rescue ActiveRecord::RecordNotFound
     not_found
