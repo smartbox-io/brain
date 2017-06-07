@@ -7,7 +7,7 @@ services:
   brain:
     build: .
     command: bundle exec rails s -p 3000 -b '0.0.0.0'
-    env:
+    environment:
       - REDIS_HOST=redis
     volumes:
       - .:/brain
@@ -19,7 +19,7 @@ services:
   worker1:
     build: .
     command: bundle exec sidekiq
-    env:
+    environment:
       - REDIS_HOST=redis
     volumes:
       - .:/brain

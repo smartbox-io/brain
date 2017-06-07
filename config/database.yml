@@ -21,5 +21,10 @@ test:
   database: db/test.sqlite3
 
 production:
-  <<: *default
-  database: db/production.sqlite3
+  adapter: mysql2
+  encoding: utf8
+  database: smartbox_production
+  username: <%= ENV.fetch("MYSQL_USERNAME") { "root" } %>
+  password: <%= ENV.fetch("MYSQL_PASSWORD") { "root" } %>
+  host: 127.0.0.1
+  port: 3306
