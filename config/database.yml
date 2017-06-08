@@ -20,5 +20,5 @@ production:
   database: <%= ENV.fetch("MYSQL_DATABASE") { "smartbox_production" } %>
   username: <%= ENV.fetch("MYSQL_USERNAME") { "root" } %>
   password: <%= ENV.fetch("MYSQL_PASSWORD") { "root" } %>
-  host: <%= ENV.fetch("MYSQL_HOST") { "127.0.0.1" } %>
-  port: <%= ENV.fetch("MYSQL_PORT") { 3306 } %>
+  host: <%= ENV.fetch("MYSQL_SERVICE_HOST") { "127.0.0.1" } %>
+  port: <%= ENV.fetch("MYSQL_SERVICE_PORT") { 3306 } %>
