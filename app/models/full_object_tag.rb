@@ -1,4 +1,4 @@
 class FullObjectTag < ApplicationRecord
-  belongs_to :full_object
+  belongs_to :object, class_name: "FullObject"
   belongs_to :tag
 end

@@ -4,7 +4,7 @@ class CreateAdmins < ActiveRecord::Migration[5.1]
       t.string :username, index: { unique: true }
       t.string :email, index: true
       t.string :password_digest
-      t.boolean :inactive, index: true
+      t.boolean :inactive, index: true, default: false
       t.timestamps
     end
   end

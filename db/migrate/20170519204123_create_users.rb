@@ -6,7 +6,7 @@ class CreateUsers < ActiveRecord::Migration[5.1]
       t.string :password_digest
       t.integer :upload_rate_limit
       t.integer :download_rate_limit
-      t.boolean :inactive, index: true
+      t.boolean :inactive, index: true, default: false
       t.timestamps
     end
   end

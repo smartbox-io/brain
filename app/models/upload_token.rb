@@ -1,7 +1,6 @@
 class UploadToken < ApplicationRecord
   include TokenGeneration
 
-  belongs_to :full_object, optional: true
   belongs_to :user
   belongs_to :cell
   belongs_to :cell_volume

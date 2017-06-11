@@ -1,3 +1,5 @@
+require "sidekiq/web"
+
 Rails.application.routes.draw do
   namespace :api do
     namespace :v1 do
@@ -24,13 +26,14 @@ Rails.application.routes.draw do
           resource :heartbeat, only: :update, controller: "cells/heartbeat"
         end
       end
-      resources :objects, only: [], param: :uuid do
+      resources :objects, only: :create, param: :uuid do
         member do
           resource :converge, only: :create, controller: "objects/converge"
         end
       end
-      resources :upload_tokens, path: "upload-tokens", param: :token, only: [:show, :destroy]
-      resources :download_tokens, path: "download-tokens", param: :token, only: [:show, :destroy]
+      resources :upload_tokens, path: "upload-tokens", param: :token, only: :show
+      resources :download_tokens, path: "download-tokens", param: :token, only: :show
+      resources :sync_tokens, path: "sync-tokens", param: :token, only: :show
     end
   end
   namespace :admin_api, path: "admin-api" do
@@ -43,4 +46,5 @@ Rails.application.routes.draw do
       end
     end
   end
+  mount Sidekiq::Web => "/sidekiq" unless Rails.env.production?
 end

@@ -16,7 +16,7 @@ ActiveRecord::Schema.define(version: 20170529190434) do
     t.string "username"
     t.string "email"
     t.string "password_digest"
-    t.boolean "inactive"
+    t.boolean "inactive", default: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["email"], name: "index_admins_on_email"
@@ -47,6 +47,7 @@ ActiveRecord::Schema.define(version: 20170529190434) do
     t.string "uuid"
     t.string "fqdn"
     t.string "ip_address"
+    t.string "public_ip_address"
     t.integer "status"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -74,7 +75,7 @@ ActiveRecord::Schema.define(version: 20170529190434) do
     t.integer "cell_id"
     t.integer "cell_volume_id"
     t.integer "status"
-    t.boolean "is_backup"
+    t.boolean "is_backup", default: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["cell_id"], name: "index_full_object_replicas_on_cell_id"
@@ -95,10 +96,10 @@ ActiveRecord::Schema.define(version: 20170529190434) do
   create_table "full_objects", force: :cascade do |t|
     t.integer "user_id"
     t.string "uuid"
-    t.integer "size"
     t.string "name"
+    t.integer "size"
     t.string "md5sum"
-    t.string "sha128sum"
+    t.string "sha1sum"
     t.string "sha256sum"
     t.integer "backup_size"
     t.integer "replica_size"
@@ -139,7 +140,7 @@ ActiveRecord::Schema.define(version: 20170529190434) do
   create_table "tags", force: :cascade do |t|
     t.string "name"
     t.string "color"
-    t.boolean "visible"
+    t.boolean "visible", default: true
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["visible"], name: "index_tags_on_visible"
@@ -165,7 +166,7 @@ ActiveRecord::Schema.define(version: 20170529190434) do
     t.string "password_digest"
     t.integer "upload_rate_limit"
     t.integer "download_rate_limit"
-    t.boolean "inactive"
+    t.boolean "inactive", default: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["email"], name: "index_users_on_email"
