@@ -8,7 +8,7 @@ class Brain
     return true if current_replica_number >= desired_replica_number
     candidate_volumes = (CellVolume.cell_healthy - object.cell_volumes).shuffle
     return false if candidate_volumes.count < (desired_replica_number - current_replica_number)
-    current_healthy_volumes = object.cell_volumes.healthy
+    current_healthy_volumes = object.cell_volumes.cell_healthy
     ActiveRecord::Base.transaction do
       (desired_replica_number - current_replica_number).times do
         source_volume = current_healthy_volumes.sample

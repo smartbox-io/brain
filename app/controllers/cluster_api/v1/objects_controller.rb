@@ -5,7 +5,7 @@ class ClusterApi::V1::ObjectsController < ClusterApplicationController
       upload_token = current_user.upload_tokens.find_by! token: params[:upload_token],
                                                          cell: @cell,
                                                          remote_ip: params[:client_ip]
-      object = current_user.full_objects.find_or_create_by(uuid: object_params[:uuid]) do |object|
+      object = current_user.objects.find_or_create_by(uuid: object_params[:uuid]) do |object|
         object_attributes.each do |attr|
           object.send :"#{attr}=", object_params[attr]
         end

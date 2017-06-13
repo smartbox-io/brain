@@ -26,7 +26,7 @@ class Api::V1::ObjectsController < ApplicationController
   private
 
   def load_object
-    @object = current_user.full_objects.find_by uuid: params[:uuid]
+    @object = current_user.objects.find_by uuid: params[:uuid]
   end
 
 end
