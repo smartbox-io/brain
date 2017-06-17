@@ -11,12 +11,12 @@ class ClusterApi::V1::SyncTokensController < ClusterApplicationController
          },
          source_cell: {
            uuid: token.source_cell.uuid,
-           ip_address: token.source_cell.ip_address,
+           ip_address: token.source_cell.public_ip_address,
            volume: token.source_cell_volume.mountpoint
          },
          target_cell: {
            uuid: token.target_cell.uuid,
-           ip_address: token.target_cell.ip_address,
+           ip_address: token.target_cell.public_ip_address,
            volume: token.target_cell_volume.mountpoint
          }
        }
