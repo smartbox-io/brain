@@ -1,0 +1,28 @@
+version: '2'
+services:
+  mongodb:
+    image: mongo
+  redis:
+    image: redis
+  brain:
+    build: .
+    command: bundle exec rails s -p 3000 -b '0.0.0.0'
+    environment:
+      - REDIS_SERVICE_HOST=redis
+    volumes:
+      - .:/brain
+    ports:
+      - "3000:3000"
+    links:
+      - mongodb
+      - redis
+  worker1:
+    build: .
+    command: bundle exec sidekiq
+    environment:
+      - REDIS_SERVICE_HOST=redis
+    volumes:
+      - .:/brain
+    links:
+      - mongodb
+      - redis
