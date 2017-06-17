@@ -1,4 +1,4 @@
-class ClusterApi::V1::SyncTokensController < ClusterApplicationController
+class ClusterApi::V1::SyncTokensController < ClusterTokenlessApplicationController
 
   def show
     token = SyncToken.find_by! token: params[:token]
