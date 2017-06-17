@@ -4,7 +4,6 @@ class CreateDownloadTokens < ActiveRecord::Migration[5.1]
       t.string :token, index: true
       t.references :full_object
       t.references :user
-      t.references :cell
       t.references :cell_volume
       t.string :remote_ip
       t.timestamps

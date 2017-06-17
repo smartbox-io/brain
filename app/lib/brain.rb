@@ -13,11 +13,9 @@ class Brain
       (desired_replica_number - current_replica_number).times do
         source_volume = current_healthy_volumes.sample
         target_volume = candidate_volumes.shift
-        sync_token = SyncToken.create source_cell: source_volume.cell,
-                                      source_cell_volume: source_volume,
-                                      target_cell: target_volume.cell,
+        sync_token = SyncToken.create source_cell_volume: source_volume,
                                       target_cell_volume: target_volume,
-                                      full_object: object,
+                                      object: object,
                                       status: :scheduled
 
         SyncObjectJob.perform_later sync_token: sync_token

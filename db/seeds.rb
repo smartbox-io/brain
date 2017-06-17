@@ -62,7 +62,7 @@ if !Rails.env.production?
     FullObject.all.each do |object|
       2.times do
         volume = volumes.shift
-        object.replicas.find_or_create_by(cell: volume.cell, cell_volume: volume) do |replica|
+        object.replicas.find_or_create_by(cell_volume: volume) do |replica|
           replica.status = :healthy
         end
       end

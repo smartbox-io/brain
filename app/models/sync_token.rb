@@ -1,11 +1,11 @@
 class SyncToken < ApplicationRecord
   include TokenGeneration
 
-  belongs_to :source_cell, class_name: "Cell"
   belongs_to :source_cell_volume, class_name: "CellVolume"
-  belongs_to :target_cell, class_name: "Cell"
+  has_one :source_cell, class_name: "Cell", through: :source_cell_volume, source: :cell
   belongs_to :target_cell_volume, class_name: "CellVolume"
-  belongs_to :object, class_name: "FullObject"
+  has_one :target_cell, class_name: "Cell", through: :target_cell_volume, source: :cell
+  belongs_to :object, class_name: "FullObject", foreign_key: :full_object_id
 
   enum status: [:scheduled, :syncing, :done]
 end
