@@ -14,7 +14,7 @@ class Cell < ApplicationRecord
 
   def request(path:, method: :get, payload: nil, query: nil, access_token: nil)
     require "net/http"
-    uri = URI("http://#{self.ip_address}#{path}")
+    uri = URI("http://#{self.public_ip_address}#{path}")
     uri.query = URI.encode_www_form(query) if query
     http = Net::HTTP.new uri.host, uri.port
     req = case method

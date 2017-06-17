@@ -5,7 +5,7 @@ class Api::V1::Objects::DownloadsController < ApplicationController
     render json: {
              download_token: download_token.token,
              cell: {
-               ip_address: download_token.cell.ip_address
+               ip_address: download_token.cell.public_ip_address
              }
            }
   end
