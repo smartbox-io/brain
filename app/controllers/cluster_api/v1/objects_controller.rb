@@ -1,6 +1,7 @@
 class ClusterApi::V1::ObjectsController < ClusterApplicationController
 
   def create
+    object = nil
     ActiveRecord::Base.transaction do
       upload_token = current_user.upload_tokens.find_by! token: params[:upload_token],
                                                          cell_volume: @cell.volumes,
@@ -14,8 +15,8 @@ class ClusterApi::V1::ObjectsController < ClusterApplicationController
         replica.status = :healthy
       end
       upload_token.destroy
-      ConvergeObjectJob.perform_later object: object
     end
+    ConvergeObjectJob.perform_later object: object
     ok
   end
 

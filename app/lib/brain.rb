@@ -9,6 +9,7 @@ class Brain
     candidate_volumes = (CellVolume.cell_healthy - object.cell_volumes).shuffle
     return false if candidate_volumes.count < (desired_replica_number - current_replica_number)
     current_healthy_volumes = object.cell_volumes.cell_healthy
+    sync_token = nil
     ActiveRecord::Base.transaction do
       (desired_replica_number - current_replica_number).times do
         source_volume = current_healthy_volumes.sample
@@ -17,9 +18,8 @@ class Brain
                                       target_cell_volume: target_volume,
                                       object: object,
                                       status: :scheduled
-
-        SyncObjectJob.perform_later sync_token: sync_token
       end
+      SyncObjectJob.perform_later sync_token: sync_token
     end
     true
   end
