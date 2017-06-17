@@ -20,9 +20,9 @@ end
 class CellCLI < Thor
   desc "ls", "List cells"
   def ls
-    table = Terminal::Table.new(headings: ["UUID", "FQDN", "IP Address", "Public IP Address", "Status", "Created at"]) do |t|
-      Cell.pluck(:uuid, :fqdn, :ip_address, :public_ip_address, :status, :created_at).each do |uuid, fqdn, ip_address, public_ip_address, status, created_at|
-        t << [uuid, fqdn, ip_address, public_ip_address, status, created_at]
+    table = Terminal::Table.new(headings: ["UUID", "FQDN", "IP Address", "Status", "Created at"]) do |t|
+      Cell.pluck(:uuid, :fqdn, :ip_address, :status, :created_at).each do |uuid, fqdn, ip_address, status, created_at|
+        t << [uuid, fqdn, ip_address, status, created_at]
       end
     end
     puts table

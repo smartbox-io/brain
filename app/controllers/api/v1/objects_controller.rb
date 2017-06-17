@@ -15,7 +15,7 @@ class Api::V1::ObjectsController < ApplicationController
     render json: {
              upload_token: upload_token.token,
              cell: {
-               ip_address: upload_token.cell.public_ip_address
+               ip_address: upload_token.cell.ip_address
              }
            }
   end

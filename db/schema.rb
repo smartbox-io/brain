@@ -47,7 +47,6 @@ ActiveRecord::Schema.define(version: 20170529190434) do
     t.string "uuid"
     t.string "fqdn"
     t.string "ip_address"
-    t.string "public_ip_address"
     t.integer "status"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false

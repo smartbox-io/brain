@@ -26,7 +26,6 @@ if !Rails.env.production?
         cell.uuid = SecureRandom.uuid
         cell.status = :healthy
         cell.ip_address = IPAddr.new(rand(2**32), Socket::AF_INET).to_s
-        cell.public_ip_address = IPAddr.new(rand(2**32), Socket::AF_INET).to_s
       end
     end
   end
