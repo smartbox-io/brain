@@ -35,6 +35,8 @@ group :test do
   gem 'shoulda'
   gem 'factory_girl_rails'
   gem 'codeclimate-test-reporter'
+  gem 'rubocop'
+  gem 'rubocop-rspec'
 end
 
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
