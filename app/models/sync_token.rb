@@ -7,5 +7,5 @@ class SyncToken < ApplicationRecord
   has_one :target_cell, through: :target_cell_volume, source: :cell
   belongs_to :object, class_name: "FullObject", foreign_key: :full_object_id
 
-  enum status: [:scheduled, :syncing, :done]
+  enum status: %i[scheduled syncing done]
 end

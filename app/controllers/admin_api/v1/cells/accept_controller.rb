@@ -1,5 +1,4 @@
 class AdminApi::V1::Cells::AcceptController < AdminApplicationController
-
   def update
     cell = Cell.find_by! uuid: params[:uuid]
     if cell.accept
@@ -8,5 +7,4 @@ class AdminApi::V1::Cells::AcceptController < AdminApplicationController
       forbidden
     end
   end
-
 end

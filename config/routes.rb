@@ -1,15 +1,16 @@
 require "sidekiq/web"
 
+# rubocop:disable Metrics/BlockLength
 Rails.application.routes.draw do
   namespace :api do
     namespace :v1 do
       resources :sessions, only: :create do
         collection do
-          match "/", to: "sessions#update", via: [:put, :patch]
+          match "/", to: "sessions#update", via: %i[put patch]
           match "/", to: "sessions#destroy", via: :delete
         end
       end
-      resources :objects, only: %i(show create destroy), param: :uuid do
+      resources :objects, only: %i[show create destroy], param: :uuid do
         member do
           resource :download, only: :show, controller: "objects/downloads"
         end
@@ -38,7 +39,7 @@ Rails.application.routes.draw do
   end
   namespace :admin_api, path: "admin-api" do
     namespace :v1 do
-      resources :admins, only: %i(index create update)
+      resources :admins, only: %i[index create update]
       resources :cells, only: :index, param: :uuid do
         member do
           resource :accept, only: :update, controller: "cells/accept"
@@ -48,3 +49,4 @@ Rails.application.routes.draw do
   end
   mount Sidekiq::Web => "/sidekiq" unless Rails.env.production?
 end
+# rubocop:enable Metrics/BlockLength

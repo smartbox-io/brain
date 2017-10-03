@@ -1,5 +1,4 @@
 class AdminApplicationController < ActionController::API
-
   include ActionController::HttpAuthentication::Token::ControllerMethods
 
   before_action :load_admin
@@ -20,5 +19,4 @@ class AdminApplicationController < ActionController::API
   def admin_active?
     !@admin.inactive || forbidden
   end
-
 end

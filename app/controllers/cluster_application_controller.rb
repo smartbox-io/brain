@@ -1,5 +1,4 @@
 class ClusterApplicationController < ApplicationController
-
   before_action :load_cell
 
   private
@@ -9,5 +8,4 @@ class ClusterApplicationController < ApplicationController
   rescue ActiveRecord::RecordNotFound
     forbidden
   end
-
 end

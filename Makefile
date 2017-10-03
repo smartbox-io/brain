@@ -5,6 +5,9 @@ all: build spec brakeman
 build:
 	docker build -t brain .
 
+run:
+	docker run --rm -v `pwd`:/brain -it brain:latest bash
+
 spec:
 	docker run --rm -v `pwd`:/brain -it brain:latest bundle exec rspec
 

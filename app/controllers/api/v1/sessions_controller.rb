@@ -1,5 +1,4 @@
 class Api::V1::SessionsController < ApplicationController
-
   skip_before_action :load_jwt, only: :create
 
   rescue_from ActiveRecord::RecordNotFound, with: :forbidden
@@ -35,10 +34,9 @@ class Api::V1::SessionsController < ApplicationController
     access_token, expires_in = JWTUtils.encode payload: { user_id: user.id }
     refresh_token = user.refresh_tokens.create
     render json: {
-             access_token: access_token,
-             expires_in: expires_in,
-             refresh_token: refresh_token.token
-           }
+      access_token:  access_token,
+      expires_in:    expires_in,
+      refresh_token: refresh_token.token
+    }
   end
-
 end

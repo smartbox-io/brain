@@ -3,5 +3,5 @@ class FullObjectReplica < ApplicationRecord
   belongs_to :cell_volume
   has_one :cell, through: :cell_volume
 
-  enum status: [:scheduled, :syncing, :healthy, :marked_for_deletion, :deleting]
+  enum status: %i[scheduled syncing healthy marked_for_deletion deleting]
 end
