@@ -15,7 +15,7 @@ rubocop:
 	docker run --rm -v `pwd`:/brain -it brain:latest bundle exec rubocop -D
 
 brakeman:
-	docker run --rm -v `pwd`:/brain -it brain:latest bundle exec brakeman -zA
+	docker run --rm -v `pwd`:/brain -it brain:latest bundle exec brakeman -zAI
 
 update:
 	docker run --rm -v `pwd`:/brain -it brain:latest bundle update
