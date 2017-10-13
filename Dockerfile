@@ -1,5 +1,5 @@
-FROM ruby:2
-RUN apt-get update -qq && apt-get install -y build-essential libmysqlclient-dev nodejs
+FROM ruby:alpine
+RUN apk add --update build-base mariadb-dev sqlite-dev nodejs tzdata && rm -rf /var/cache/apk/*
 RUN mkdir /brain
 WORKDIR /brain
 ADD Gemfile /brain/Gemfile
