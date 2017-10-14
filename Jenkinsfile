@@ -48,11 +48,4 @@ pipeline {
       }
     }
   }
-  post {
-    always {
-      sh "docker rmi -f smartbox/brain:${GIT_COMMIT}"
-      sh "docker rmi -f registry.hub.docker.com/smartbox/brain"
-      sh "docker rmi -f registry.hub.docker.com/smartbox/brain:${GIT_COMMIT}"
-    }
-  }
 }
