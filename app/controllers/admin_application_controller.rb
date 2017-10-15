@@ -1,7 +1,7 @@
 class AdminApplicationController < ActionController::API
-  include ActionController::HttpAuthentication::Token::ControllerMethods
+  include ActionController::HttpAuthentication::Basic::ControllerMethods
 
-  before_action :load_admin
+  before_action :authenticate_admin
   before_action :admin_active?
 
   private
@@ -10,10 +10,10 @@ class AdminApplicationController < ActionController::API
     head :forbidden
   end
 
-  def load_admin
-    @admin ||= Admin.find_by! username: params[:username], password: params[:password]
-  rescue ActiveRecord::RecordNotFound
-    forbidden
+  def authenticate_admin
+    authenticate_or_request_with_http_basic("Admin API") do |username, password|
+      @admin ||= Admin.find_by(username: username).try(:authenticate, password)
+    end
   end
 
   def admin_active?
