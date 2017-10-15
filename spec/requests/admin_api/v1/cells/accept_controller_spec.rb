@@ -1,7 +1,6 @@
 require "rails_helper"
 
 RSpec.describe AdminApi::V1::Cells::AcceptController do
-
   subject               { response }
 
   let(:admin)           { FactoryGirl.create :admin }
@@ -20,9 +19,7 @@ RSpec.describe AdminApi::V1::Cells::AcceptController do
     end
 
     describe "http return status" do
-      before do
-        request
-      end
+      before { request }
 
       it { is_expected.to have_http_status(:ok) }
     end
@@ -38,12 +35,9 @@ RSpec.describe AdminApi::V1::Cells::AcceptController do
     end
 
     describe "http return status" do
-      before do
-        request
-      end
+      before { request }
 
       it { is_expected.to have_http_status(:forbidden) }
     end
   end
-
 end
