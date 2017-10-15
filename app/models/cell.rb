@@ -9,7 +9,7 @@ class Cell < ApplicationRecord
 
   def accept
     return false if status != "discovered"
-    update_column :status, :healthy
+    update_column :status, :accepted
   end
 
   def request(path:, method: :get, payload: nil, query: nil, access_token: nil)
