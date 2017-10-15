@@ -1,4 +1,4 @@
-require "rails_helper"
+require "spec_helper"
 
 RSpec.describe UploadToken do
   it { is_expected.to belong_to(:user) }

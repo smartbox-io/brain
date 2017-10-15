@@ -1,4 +1,4 @@
-require "rails_helper"
+require "spec_helper"
 
 RSpec.describe User do
   it { is_expected.to have_many(:refresh_tokens).dependent(:destroy) }

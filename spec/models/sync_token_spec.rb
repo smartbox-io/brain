@@ -1,4 +1,4 @@
-require "rails_helper"
+require "spec_helper"
 
 RSpec.describe SyncToken do
   it { is_expected.to belong_to(:source_cell_volume).class_name("CellVolume") }

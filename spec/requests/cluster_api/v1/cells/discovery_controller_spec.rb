@@ -1,4 +1,4 @@
-require "rails_helper"
+require "spec_helper"
 
 RSpec.describe ClusterApi::V1::Cells::DiscoveryController do
   subject { response }
@@ -19,19 +19,20 @@ RSpec.describe ClusterApi::V1::Cells::DiscoveryController do
       }
     }
   end
-  let(:request) do
-    post cluster_api_v1_discovery_path(format: :json),
-         params:  cell_params.to_json,
-         headers: { "Content-Type" => "application/json" }
-  end
 
   context "a new cell is discovered" do
-    it "creates a new cell" do
-      expect { request }.to change { Cell.count }.by(1)
+    def create
+      post cluster_api_v1_discovery_path(format: :json),
+           params:  cell_params.to_json,
+           headers: { "Content-Type" => "application/json" }
     end
 
-    describe "http return status" do
-      before { request }
+    it "creates a new cell" do
+      expect { create }.to change { Cell.count }.by 1
+    end
+
+    describe "http response" do
+      before { create }
 
       it { is_expected.to have_http_status(:ok) }
     end

@@ -1,4 +1,4 @@
-require "rails_helper"
+require "spec_helper"
 
 RSpec.describe Cell do
   it { is_expected.to have_many(:volumes).class_name("CellVolume").dependent(:destroy) }
