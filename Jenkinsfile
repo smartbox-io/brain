@@ -39,11 +39,9 @@ pipeline {
     }
     stage("Publish image") {
       steps {
-        lock("publish-brain-image") {
-          script {
-            docker.withRegistry("https://registry.hub.docker.com", "docker-hub-credentials") {
-              docker.image("smartbox/brain:${GIT_COMMIT}").push("latest")
-            }
+        script {
+          docker.withRegistry("https://registry.hub.docker.com", "docker-hub-credentials") {
+            docker.image("smartbox/brain:${GIT_COMMIT}").push("latest")
           }
         }
       }
