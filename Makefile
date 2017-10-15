@@ -8,7 +8,10 @@ build:
 	docker build -t brain .
 
 run:
-	docker run --rm -v `pwd`:/brain -it brain:latest bash
+	docker run --rm -v `pwd`:/brain -it brain:latest sh
+
+routes:
+	docker run --rm -v `pwd`:/brain -it brain:latest bundle exec rake routes
 
 spec:
 	docker run --rm -v `pwd`:/brain -it brain:latest bundle exec rspec $(SPEC)
