@@ -20,17 +20,27 @@ pipeline {
     }
     stage("Analyze image") {
       parallel {
-        stage("Run coding style analysis") {
+        stage("Coding style analysis") {
           steps {
             sh("docker run --rm -i smartbox/brain:${GIT_COMMIT} bundle exec rubocop -D")
           }
         }
-        stage("Run security analysis") {
+        stage("Security analysis") {
           steps {
             sh("docker run --rm -i smartbox/brain:${GIT_COMMIT} bundle exec brakeman -zA")
           }
         }
-        stage("Run specs") {
+        stage("Models specs") {
+          steps {
+            sh("docker run --rm -i smartbox/brain:${GIT_COMMIT} bundle exec rspec spec/models")
+          }
+        }
+        stage("Requests specs") {
+          steps {
+            sh("docker run --rm -i smartbox/brain:${GIT_COMMIT} bundle exec rspec spec/requests")
+          }
+        }
+        stage("All specs") {
           steps {
             sh("docker run --rm -i smartbox/brain:${GIT_COMMIT} bundle exec rspec")
           }
