@@ -17,10 +17,10 @@ spec:
 	docker run --rm -v `pwd`:/brain -it brain:latest bundle exec rspec $(SPEC)
 
 models:
-	docker run --rm -v `pwd`:/brain -it brain:latest bundle exec rspec spec/models
+	docker run --rm -e COVERAGE_DIR=/brain/coverage-models -v `pwd`:/brain -it brain:latest bundle exec rspec spec/models
 
 requests:
-	docker run --rm -v `pwd`:/brain -it brain:latest bundle exec rspec spec/requests
+	docker run --rm -e COVERAGE_DIR=/brain/coverage-requests -v `pwd`:/brain -it brain:latest bundle exec rspec spec/requests
 
 rubocop:
 	docker run --rm -v `pwd`:/brain -it brain:latest bundle exec rubocop -D
