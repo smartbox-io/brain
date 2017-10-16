@@ -30,12 +30,12 @@ pipeline {
             sh("docker run --rm -i smartbox/brain:${GIT_COMMIT} bundle exec brakeman -zA")
           }
         }
-        stage("Models specs") {
+        stage("Model specs") {
           steps {
             sh("docker run --rm -i smartbox/brain:${GIT_COMMIT} bundle exec rspec spec/models")
           }
         }
-        stage("Requests specs") {
+        stage("Request specs") {
           steps {
             sh("docker run --rm -i smartbox/brain:${GIT_COMMIT} bundle exec rspec spec/requests")
           }
