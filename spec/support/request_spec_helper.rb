@@ -7,4 +7,11 @@ module RequestSpecHelper
       )
     }
   end
+
+  def token_auth(user)
+    access_token = user.access_and_refresh_tokens
+    {
+      AUTHORIZATION: "Bearer #{access_token[:access_token]}"
+    }
+  end
 end

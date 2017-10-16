@@ -13,15 +13,15 @@ class Api::V1::SessionsController < ApplicationController
   end
 
   def update
-    if @user.refresh_tokens.where(token: params[:refresh_token]).delete_all == 1
-      render_access_token user: @user
+    if current_user.refresh_tokens.where(token: params[:refresh_token]).delete_all == 1
+      render_access_token user: current_user
     else
       forbidden
     end
   end
 
   def destroy
-    if @user.refresh_tokens.where(token: params[:refresh_token]).delete_all == 1
+    if current_user.refresh_tokens.where(token: params[:refresh_token]).delete_all == 1
       head :ok
     else
       forbidden
@@ -31,12 +31,6 @@ class Api::V1::SessionsController < ApplicationController
   private
 
   def render_access_token(user:)
-    access_token, expires_in = JWTUtils.encode payload: { user_id: user.id }
-    refresh_token = user.refresh_tokens.create
-    render json: {
-      access_token:  access_token,
-      expires_in:    expires_in,
-      refresh_token: refresh_token.token
-    }
+    render json: user.access_and_refresh_tokens
   end
 end

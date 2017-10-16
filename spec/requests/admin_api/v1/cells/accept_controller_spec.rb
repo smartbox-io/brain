@@ -10,7 +10,7 @@ RSpec.describe AdminApi::V1::Cells::AcceptController do
 
   context "cell is in discovered status" do
     def accept
-      patch admin_api_v1_accept_path(discovered_cell.uuid, format: :json), headers
+      patch admin_api_v1_accept_path(discovered_cell.uuid), headers
     end
 
     it "sets the cell in accepted status" do
@@ -21,13 +21,13 @@ RSpec.describe AdminApi::V1::Cells::AcceptController do
     describe "http response" do
       before { accept }
 
-      it { is_expected.to have_http_status(:ok) }
+      it { is_expected.to have_http_status :ok }
     end
   end
 
   context "cell is not in discovered status" do
     def accept
-      patch admin_api_v1_accept_path(accepted_cell.uuid, format: :json), headers
+      patch admin_api_v1_accept_path(accepted_cell.uuid), headers
     end
 
     it "does not change cell status" do
@@ -37,7 +37,7 @@ RSpec.describe AdminApi::V1::Cells::AcceptController do
     describe "http response" do
       before { accept }
 
-      it { is_expected.to have_http_status(:forbidden) }
+      it { is_expected.to have_http_status :forbidden }
     end
   end
 end

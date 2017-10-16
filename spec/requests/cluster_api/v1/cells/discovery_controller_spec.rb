@@ -22,9 +22,8 @@ RSpec.describe ClusterApi::V1::Cells::DiscoveryController do
 
   context "a new cell is discovered" do
     def create
-      post cluster_api_v1_discovery_path(format: :json),
-           params:  cell_params.to_json,
-           headers: { "Content-Type" => "application/json" }
+      post cluster_api_v1_discovery_path, params:  cell_params.to_json,
+                                          headers: { "Content-Type" => "application/json" }
     end
 
     it "creates a new cell" do
@@ -34,7 +33,7 @@ RSpec.describe ClusterApi::V1::Cells::DiscoveryController do
     describe "http response" do
       before { create }
 
-      it { is_expected.to have_http_status(:ok) }
+      it { is_expected.to have_http_status :ok }
     end
   end
 end
