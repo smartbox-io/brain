@@ -1,7 +1,7 @@
 require "spec_helper"
 
 RSpec.describe AdminApi::V1::Cells::AcceptController do
-  subject               { response }
+  subject { response }
 
   let(:admin)           { FactoryGirl.create :admin }
   let(:discovered_cell) { FactoryGirl.create :cell, status: :discovered }
