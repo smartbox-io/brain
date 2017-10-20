@@ -4,7 +4,7 @@ require "io/console"
 class AdminCLI < Thor
   desc "create USERNAME EMAIL", "Creates an admin user"
   def create(username, email)
-    return unless ask_admin_credentials
+    CLI.ask_admin_credentials unless Admin.count.zero?
     password = CLI.ask_new_password
     Admin.create! username: username,
                   email:    email,
@@ -38,7 +38,7 @@ class CellCLI < Thor
     if cell.accept
       puts "Cell accepted successfully"
     else
-      puts "Cell wasn't accepted successfully (was it already accepted?)"
+      abort "Cell wasn't accepted successfully (was it already accepted?)"
     end
   end
 
@@ -60,39 +60,34 @@ class CLI < Thor
   desc "cell SUBCOMMAND", "Manage cells"
   subcommand "cell", CellCLI
 
-  # rubocop:disable Naming/PredicateName
-  def has_subcommand?(subcommand)
-    self.class.subcommands.include? subcommand
+  no_commands do
+    # rubocop:disable Naming/PredicateName
+    def has_subcommand?(subcommand)
+      self.class.subcommands.include? subcommand
+    end
+    # rubocop:enable Naming/PredicateName
   end
-  # rubocop:enable Naming/PredicateName
 
   def self.ask_for(field, noecho: false)
-    STDOUT.print "#{field}: "
-    STDOUT.flush
+    $stdout.print "#{field}: "
+    $stdout.flush
     if noecho
-      STDIN.noecho(&:gets).chomp
+      $stdin.noecho(&:gets).chomp
     else
-      STDIN.gets.chomp
+      $stdin.gets.chomp
     end
   end
 
-  # rubocop:disable Metrics/MethodLength
   def self.ask_admin_credentials
-    return true if Admin.count.zero?
     puts "Please, enter your administrator credentials:"
     username = ask_for "Username"
     password = ask_for "Password", noecho: true
     puts
     user = Admin.find_by username: username
-    if user.try :authenticate, password
-      true
-    else
-      sleep 5
-      puts "Invalid credentials"
-      false
-    end
+    return if user.try :authenticate, password
+    sleep 5
+    abort "Invalid credentials"
   end
-  # rubocop:enable Metrics/MethodLength
 
   # rubocop:disable Metrics/MethodLength
   def self.ask_new_password
@@ -105,6 +100,7 @@ class CLI < Thor
       break if password == password_repeat
       puts "Passwords do not match, please try again"
       puts
+      break if Rails.env.test?
     end
     password
   end
