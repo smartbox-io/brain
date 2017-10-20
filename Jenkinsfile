@@ -22,32 +22,32 @@ pipeline {
       parallel {
         stage("Style analysis") {
           steps {
-            sh("docker run --rm -t smartbox/brain:${GIT_COMMIT} bundle exec rubocop -D")
+            sh("docker run --rm -t smartbox/brain:${GIT_COMMIT} bundle exec rubocop --no-color -D")
           }
         }
         stage("Security analysis") {
           steps {
-            sh("docker run --rm -t smartbox/brain:${GIT_COMMIT} bundle exec brakeman -zA")
+            sh("docker run --rm -t smartbox/brain:${GIT_COMMIT} bundle exec brakeman --no-color -zA")
           }
         }
         stage("Model specs") {
           steps {
-            sh("docker run --rm -e COVERAGE=models -t smartbox/brain:${GIT_COMMIT} bundle exec rspec spec/models")
+            sh("docker run --rm -e COVERAGE=models -t smartbox/brain:${GIT_COMMIT} bundle exec rspec --no-color spec/models")
           }
         }
         stage("Request specs") {
           steps {
-            sh("docker run --rm -e COVERAGE=requests -t smartbox/brain:${GIT_COMMIT} bundle exec rspec spec/requests")
+            sh("docker run --rm -e COVERAGE=requests -t smartbox/brain:${GIT_COMMIT} bundle exec rspec --no-color spec/requests")
           }
         }
         stage("Library specs") {
           steps {
-            sh("docker run --rm -e COVERAGE=lib -t smartbox/brain:${GIT_COMMIT} bundle exec rspec spec/lib")
+            sh("docker run --rm -e COVERAGE=lib -t smartbox/brain:${GIT_COMMIT} bundle exec rspec --no-color spec/lib")
           }
         }
         stage("All specs") {
           steps {
-            sh("docker run --rm -t smartbox/brain:${GIT_COMMIT} bundle exec rspec")
+            sh("docker run --rm -t smartbox/brain:${GIT_COMMIT} bundle exec rspec --no-color")
           }
         }
       }
