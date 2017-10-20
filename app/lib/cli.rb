@@ -60,6 +60,12 @@ class CLI < Thor
   desc "cell SUBCOMMAND", "Manage cells"
   subcommand "cell", CellCLI
 
+  # rubocop:disable Naming/PredicateName
+  def has_subcommand?(subcommand)
+    self.class.subcommands.include? subcommand
+  end
+  # rubocop:enable Naming/PredicateName
+
   def self.ask_for(field, noecho: false)
     STDOUT.print "#{field}: "
     STDOUT.flush

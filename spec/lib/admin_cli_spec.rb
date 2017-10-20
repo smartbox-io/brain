@@ -3,6 +3,7 @@ require "cli"
 
 RSpec.describe AdminCLI do
 
-  it "should create a username"
+  describe "#create" do
+  end
 
 end
