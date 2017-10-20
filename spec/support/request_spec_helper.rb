@@ -14,4 +14,16 @@ module RequestSpecHelper
       AUTHORIZATION: "Bearer #{access_token[:access_token]}"
     }
   end
+
+  def content_type(content_type)
+    { "Content-Type" => content_type }
+  end
+
+  def json_content_type
+    content_type "application/json"
+  end
+
+  def ip(ip)
+    { REMOTE_ADDR: ip }
+  end
 end

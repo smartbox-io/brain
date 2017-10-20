@@ -26,6 +26,8 @@ class Api::V1::ObjectsController < ApplicationController
   private
 
   def load_object
-    @object = current_user.objects.find_by uuid: params[:uuid]
+    @object = current_user.objects.find_by! uuid: params[:uuid]
+  rescue ActiveRecord::RecordNotFound
+    not_found
   end
 end

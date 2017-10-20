@@ -23,7 +23,7 @@ RSpec.describe ClusterApi::V1::Cells::DiscoveryController do
   context "a new cell is discovered" do
     def create
       post cluster_api_v1_discovery_path, params:  cell_params.to_json,
-                                          headers: { "Content-Type" => "application/json" }
+                                          headers: json_content_type
     end
 
     it "creates a new cell" do

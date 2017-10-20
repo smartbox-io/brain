@@ -8,12 +8,20 @@ RSpec.describe Api::V1::ObjectsController do
   let(:user) { object.user }
 
   describe "#show" do
-    before { get api_v1_object_path(object.uuid), headers: token_auth(user) }
+    context "with an existing object" do
+      before { get api_v1_object_path(object.uuid), headers: token_auth(user) }
 
-    it { is_expected.to have_http_status :ok }
+      it { is_expected.to have_http_status :ok }
 
-    it "renders object information" do
-      expect(json).to include(:uuid, :name, :size)
+      it "renders object information" do
+        expect(json).to include(:uuid, :name, :size)
+      end
+    end
+
+    context "with a non existing object" do
+      before { get api_v1_object_path(SecureRandom.uuid), headers: token_auth(user) }
+
+      it { is_expected.to have_http_status :not_found }
     end
   end
 

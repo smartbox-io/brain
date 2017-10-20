@@ -17,5 +17,7 @@ class Api::V1::Objects::DownloadsController < ApplicationController
 
   def load_object
     @object = FullObject.find_by! uuid: params[:uuid]
+  rescue ActiveRecord::RecordNotFound
+    not_found
   end
 end
