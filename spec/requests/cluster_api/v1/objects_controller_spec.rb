@@ -3,8 +3,8 @@ require "spec_helper"
 RSpec.describe ClusterApi::V1::ObjectsController do
   subject { response }
 
-  let(:object) { FactoryGirl.create :full_object }
-  let(:upload_token) { FactoryGirl.create :upload_token, user: object.user }
+  let(:object) { FactoryBot.create :full_object }
+  let(:upload_token) { FactoryBot.create :upload_token, user: object.user }
   let(:existing_object_params) do
     {
       upload_token: upload_token.token,

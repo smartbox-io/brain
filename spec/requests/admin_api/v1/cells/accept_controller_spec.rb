@@ -3,9 +3,9 @@ require "spec_helper"
 RSpec.describe AdminApi::V1::Cells::AcceptController do
   subject { response }
 
-  let(:admin)           { FactoryGirl.create :admin }
-  let(:discovered_cell) { FactoryGirl.create :cell, status: :discovered }
-  let(:accepted_cell)   { FactoryGirl.create :cell, status: :accepted }
+  let(:admin)           { FactoryBot.create :admin }
+  let(:discovered_cell) { FactoryBot.create :cell, status: :discovered }
+  let(:accepted_cell)   { FactoryBot.create :cell, status: :accepted }
   let(:headers)         { { headers: basic_auth(admin) } }
 
   context "cell is in discovered status" do

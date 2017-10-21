@@ -2,7 +2,7 @@ require "spec_helper"
 
 RSpec.describe ConvergeObjectJob do
 
-  let(:object) { FactoryGirl.create :full_object }
+  let(:object) { FactoryBot.create :full_object }
 
   describe "#perform" do
     it "calls to Brain.converge_object" do

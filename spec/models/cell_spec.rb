@@ -1,7 +1,7 @@
 require "spec_helper"
 
 RSpec.describe Cell do
-  let(:cell) { FactoryGirl.create :cell }
+  let(:cell) { FactoryBot.create :cell }
 
   it { is_expected.to have_many(:volumes).class_name("CellVolume").dependent(:destroy) }
   it { is_expected.to have_many(:object_backups).through(:volumes) }
@@ -14,7 +14,7 @@ RSpec.describe Cell do
     subject { cell.accept }
 
     context "current status is discovered" do
-      let(:cell) { FactoryGirl.create :cell, status: described_class.statuses[:discovered] }
+      let(:cell) { FactoryBot.create :cell, status: described_class.statuses[:discovered] }
 
       it { is_expected.to be true }
 
@@ -25,7 +25,7 @@ RSpec.describe Cell do
 
     (described_class.statuses.keys - ["discovered"]).each do |status|
       context "current status is #{status}" do
-        let(:cell) { FactoryGirl.create :cell, status: status }
+        let(:cell) { FactoryBot.create :cell, status: status }
 
         it { is_expected.to be false }
 

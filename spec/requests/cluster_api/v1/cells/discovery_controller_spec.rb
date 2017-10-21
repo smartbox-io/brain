@@ -3,7 +3,7 @@ require "spec_helper"
 RSpec.describe ClusterApi::V1::Cells::DiscoveryController do
   subject { response }
 
-  let(:cell) { FactoryGirl.build :cell }
+  let(:cell) { FactoryBot.build :cell }
   let(:cell_params) do
     {
       cell: {

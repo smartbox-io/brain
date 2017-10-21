@@ -3,7 +3,7 @@ require "spec_helper"
 RSpec.describe Api::V1::ObjectsController do
   subject { response }
 
-  let(:object_replica) { FactoryGirl.create :full_object_replica }
+  let(:object_replica) { FactoryBot.create :full_object_replica }
   let(:object) { object_replica.object }
   let(:user) { object.user }
 

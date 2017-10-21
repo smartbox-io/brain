@@ -1,4 +1,4 @@
-FactoryGirl.define do
+FactoryBot.define do
   factory :download_token do
     association :object, factory: :full_object
     user

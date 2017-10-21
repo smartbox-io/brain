@@ -1,7 +1,7 @@
 require "spec_helper"
 
 RSpec.describe User do
-  let(:user) { FactoryGirl.create :user }
+  let(:user) { FactoryBot.create :user }
 
   it { is_expected.to have_many(:refresh_tokens).dependent(:destroy) }
   it { is_expected.to have_many(:download_tokens).dependent(:destroy) }

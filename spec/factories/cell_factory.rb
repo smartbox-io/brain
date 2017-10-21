@@ -1,4 +1,4 @@
-FactoryGirl.define do
+FactoryBot.define do
   factory :cell do
     uuid              { SecureRandom.uuid }
     sequence(:fqdn)   { |n| "cell#{n}.example.com" }

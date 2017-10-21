@@ -5,8 +5,8 @@ RSpec.describe CellCLI do
 
   subject(:cell_cli) { described_class.new }
 
-  let(:cell) { FactoryGirl.create :cell }
-  let(:discovered_cell) { FactoryGirl.create :cell, status: :discovered }
+  let(:cell) { FactoryBot.create :cell }
+  let(:discovered_cell) { FactoryBot.create :cell, status: :discovered }
 
   before { cell }
 

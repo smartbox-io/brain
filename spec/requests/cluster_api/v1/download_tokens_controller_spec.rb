@@ -3,7 +3,7 @@ require "spec_helper"
 RSpec.describe ClusterApi::V1::DownloadTokensController do
   subject { response }
 
-  let(:download_token) { FactoryGirl.create :download_token }
+  let(:download_token) { FactoryBot.create :download_token }
   let(:cell) { download_token.cell_volume.cell }
   let(:user) { download_token.user }
   let(:remote_ip) { download_token.remote_ip }

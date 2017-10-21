@@ -1,4 +1,4 @@
-FactoryGirl.define do
+FactoryBot.define do
   factory :full_object do
     user
     uuid            { SecureRandom.uuid }

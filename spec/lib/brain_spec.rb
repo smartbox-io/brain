@@ -3,10 +3,10 @@ require "brain"
 
 RSpec.describe Brain do
 
-  let(:object) { FactoryGirl.create :full_object }
-  let(:volume) { FactoryGirl.create :cell_volume }
-  let(:other_volume) { FactoryGirl.create :cell_volume }
-  let(:sync_token) { FactoryGirl.create :sync_token }
+  let(:object) { FactoryBot.create :full_object }
+  let(:volume) { FactoryBot.create :cell_volume }
+  let(:other_volume) { FactoryBot.create :cell_volume }
+  let(:sync_token) { FactoryBot.create :sync_token }
 
   describe ".schedule_sync" do
     def schedule_sync

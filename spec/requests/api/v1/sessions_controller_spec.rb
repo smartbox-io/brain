@@ -3,7 +3,7 @@ require "spec_helper"
 RSpec.describe Api::V1::SessionsController do
   subject { response }
 
-  let(:user) { FactoryGirl.create :user }
+  let(:user) { FactoryBot.create :user }
   let(:refresh_token) { user.refresh_tokens.create }
 
   describe "#create" do

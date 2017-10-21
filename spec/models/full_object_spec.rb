@@ -1,9 +1,9 @@
 require "spec_helper"
 
 RSpec.describe FullObject do
-  let(:object) { FactoryGirl.create :full_object }
-  let(:object_replicas) { FactoryGirl.create_list :full_object_replica, 2, object: object }
-  let(:other_cell_volume) { FactoryGirl.create :cell_volume }
+  let(:object) { FactoryBot.create :full_object }
+  let(:object_replicas) { FactoryBot.create_list :full_object_replica, 2, object: object }
+  let(:other_cell_volume) { FactoryBot.create :cell_volume }
 
   it { is_expected.to belong_to(:user) }
   it {

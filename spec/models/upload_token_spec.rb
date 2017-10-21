@@ -1,7 +1,7 @@
 require "spec_helper"
 
 RSpec.describe UploadToken do
-  let(:upload_token) { FactoryGirl.create :upload_token }
+  let(:upload_token) { FactoryBot.create :upload_token }
 
   it { is_expected.to belong_to(:user) }
   it { is_expected.to belong_to(:cell_volume) }

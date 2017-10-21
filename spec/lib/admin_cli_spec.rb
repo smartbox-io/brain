@@ -5,7 +5,7 @@ RSpec.describe AdminCLI do
 
   subject(:admin_cli) { described_class.new }
 
-  let(:admin) { FactoryGirl.create :admin }
+  let(:admin) { FactoryBot.create :admin }
   let(:username) { "username" }
   let(:password) { "password" }
   let(:email) { "user@example.com" }

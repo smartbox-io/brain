@@ -3,7 +3,7 @@ require "spec_helper"
 RSpec.describe ClusterApi::V1::UploadTokensController do
   subject { response }
 
-  let(:upload_token) { FactoryGirl.create :upload_token }
+  let(:upload_token) { FactoryBot.create :upload_token }
   let(:cell) { upload_token.cell_volume.cell }
   let(:user) { upload_token.user }
   let(:remote_ip) { upload_token.remote_ip }

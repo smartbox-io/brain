@@ -2,7 +2,7 @@ require "spec_helper"
 
 RSpec.describe SyncObjectJob do
 
-  let(:sync_token) { FactoryGirl.create :sync_token }
+  let(:sync_token) { FactoryBot.create :sync_token }
 
   describe "#perform" do
     it "calls to Brain.sync_object" do

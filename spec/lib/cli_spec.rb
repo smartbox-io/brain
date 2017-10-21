@@ -3,7 +3,7 @@ require "cli"
 
 RSpec.describe CLI do
 
-  let(:admin) { FactoryGirl.create :admin }
+  let(:admin) { FactoryBot.create :admin }
 
   it { is_expected.to have_subcommand "admin" }
   it { is_expected.to have_subcommand "cell" }

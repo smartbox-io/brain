@@ -3,7 +3,7 @@ require "spec_helper"
 RSpec.describe ClusterApi::V1::SyncTokensController do
   subject { response }
 
-  let(:sync_token) { FactoryGirl.create :sync_token }
+  let(:sync_token) { FactoryBot.create :sync_token }
   let(:remote_ip) { sync_token.target_cell_volume.cell.ip_address }
 
   before { show }

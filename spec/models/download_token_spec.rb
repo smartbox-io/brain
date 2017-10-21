@@ -1,7 +1,7 @@
 require "spec_helper"
 
 RSpec.describe DownloadToken do
-  let(:download_token) { FactoryGirl.create :download_token }
+  let(:download_token) { FactoryBot.create :download_token }
 
   it {
     is_expected.to belong_to(:object).class_name("FullObject")
