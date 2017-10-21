@@ -2,11 +2,11 @@ require:
   - rubocop-rspec
 
 inherit_from:
-  - ./config/rubocop-suse.yml
+  - config/rubocop-suse.yml
 
 Metrics/BlockLength:
   Exclude:
-    - ./spec/**/*
+    - spec/**/*
 
 Documentation:
   Enabled: False
