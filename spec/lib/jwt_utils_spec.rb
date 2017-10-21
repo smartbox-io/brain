@@ -20,7 +20,7 @@ RSpec.describe JWTUtils do
   describe ".decode" do
     it "decodes the payload" do
       expect(described_class.decode(jwt: jwt)).to match(payload:    { some: "payload" },
-                                                        expiration: be_an_instance_of(Integer),
+                                                        expiration: be_a(Integer),
                                                         version:    "v1")
     end
   end
