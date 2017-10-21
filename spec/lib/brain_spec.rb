@@ -46,8 +46,8 @@ RSpec.describe Brain do
 
     context "when the desired replica number is not met" do
       before do
-        allow(described_class).to receive(:desired_replica_number).with(object: object).and_return 2
-        allow(described_class).to receive(:current_replica_number).with(object: object).and_return 1
+        allow(object).to receive(:desired_replica_number).and_return 2
+        allow(object).to receive(:current_replica_number).and_return 1
       end
 
       it "schedules a sync" do

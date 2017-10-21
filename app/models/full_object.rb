@@ -13,6 +13,18 @@ class FullObject < ApplicationRecord
   before_validation :assign_backup_size, on: :create
   before_validation :assign_replica_size, on: :create
 
+  def desired_replica_number
+    [backup_size, replica_size].max
+  end
+
+  def current_replica_number
+    backups_and_replicas.count
+  end
+
+  def candidate_volumes
+    CellVolume.cell_healthy - cell_volumes
+  end
+
   private
 
   def assign_backup_size

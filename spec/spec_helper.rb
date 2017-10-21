@@ -14,6 +14,8 @@ class SubsetFilesFilter < SimpleCov::Filter
 end
 
 SimpleCov.start "rails" do
+  minimum_coverage 100
+
   case ENV["COVERAGE"]
   when "models"
     add_filter SubsetFilesFilter.new(:models)
