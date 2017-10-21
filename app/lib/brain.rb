@@ -23,18 +23,21 @@ class Brain
 
   # FIXME: add specific exceptions (unfeasible situations...)
   # FIXME: take sync tokens into account when calculating convergence
+  # rubocop:disable Metrics/MethodLength
   def self.converge_object(object:)
-    return true if current_replica_number >= desired_replica_number
+    return true if current_replica_number(object: object) >= desired_replica_number(object: object)
     candidate_volumes = candidate_volumes object: object
-    return false if candidate_volumes.count < (desired_replica_number - current_replica_number)
+    return false if candidate_volumes.count < (desired_replica_number(object: object) -
+                                               current_replica_number(object: object))
     current_healthy_volumes = object.cell_volumes.cell_healthy
-    (desired_replica_number - current_replica_number).times do
+    (desired_replica_number(object: object) - current_replica_number(object: object)).times do
       source_volume = current_healthy_volumes.sample
       target_volume = candidate_volumes.shift
       schedule_sync object: object, source_volume: source_volume, target_volume: target_volume
     end
     true
   end
+  # rubocop:enable Metrics/MethodLength
 
   def self.sync_object(sync_token:)
     sync_token.target_cell.request path:    "/cluster-api/v1/objects",
