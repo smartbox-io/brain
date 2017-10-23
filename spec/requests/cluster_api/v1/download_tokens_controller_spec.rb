@@ -11,9 +11,11 @@ RSpec.describe ClusterApi::V1::DownloadTokensController do
   describe "#show" do
     context "download token exists" do
       before do
-        get cluster_api_v1_download_token_path(download_token.token, params: {
-                                                 client_ip: remote_ip
-                                               }), headers: token_auth(user)
+        get cluster_api_v1_download_token_path(download_token.token),
+            params:  {
+              client_ip: remote_ip
+            },
+            headers: token_auth(user)
       end
 
       it { is_expected.to have_http_status :ok }
@@ -21,9 +23,11 @@ RSpec.describe ClusterApi::V1::DownloadTokensController do
 
     context "download token does not exist" do
       before do
-        get cluster_api_v1_download_token_path("invalid-token", params: {
-                                                 client_ip: remote_ip
-                                               }), headers: token_auth(user)
+        get cluster_api_v1_download_token_path("invalid-token"),
+            params:  {
+              client_ip: remote_ip
+            },
+            headers: token_auth(user)
       end
 
       it { is_expected.to have_http_status :forbidden }
@@ -31,10 +35,11 @@ RSpec.describe ClusterApi::V1::DownloadTokensController do
 
     context "unknown cell raises a forbidden error" do
       before do
-        get cluster_api_v1_download_token_path(download_token.token, params: {
-                                                 client_ip: remote_ip
-                                               }), headers: token_auth(user)
-                                                 .merge(ip("255.255.255.255"))
+        get cluster_api_v1_download_token_path(download_token.token),
+            params:  {
+              client_ip: remote_ip
+            },
+            headers: token_auth(user).merge(ip("255.255.255.255"))
       end
 
       it { is_expected.to have_http_status :forbidden }

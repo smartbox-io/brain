@@ -11,9 +11,11 @@ RSpec.describe ClusterApi::V1::UploadTokensController do
   describe "#show" do
     context "upload token exists" do
       before do
-        get cluster_api_v1_upload_token_path(upload_token.token, params: {
-                                               client_ip: remote_ip
-                                             }), headers: token_auth(user)
+        get cluster_api_v1_upload_token_path(upload_token.token),
+            params:  {
+              client_ip: remote_ip
+            },
+            headers: token_auth(user)
       end
 
       it { is_expected.to have_http_status :ok }
@@ -21,9 +23,11 @@ RSpec.describe ClusterApi::V1::UploadTokensController do
 
     context "upload token does not exist" do
       before do
-        get cluster_api_v1_upload_token_path("invalid-token", params: {
-                                               client_ip: remote_ip
-                                             }), headers: token_auth(user)
+        get cluster_api_v1_upload_token_path("invalid-token"),
+            params:  {
+              client_ip: remote_ip
+            },
+            headers: token_auth(user)
       end
 
       it { is_expected.to have_http_status :forbidden }
@@ -31,10 +35,11 @@ RSpec.describe ClusterApi::V1::UploadTokensController do
 
     context "unknown cell raises a forbidden error" do
       before do
-        get cluster_api_v1_upload_token_path(upload_token.token, params: {
-                                               client_ip: remote_ip
-                                             }), headers: token_auth(user)
-                                               .merge(ip("255.255.255.255"))
+        get cluster_api_v1_upload_token_path(upload_token.token),
+            params:  {
+              client_ip: remote_ip
+            },
+            headers: token_auth(user).merge(ip("255.255.255.255"))
       end
 
       it { is_expected.to have_http_status :forbidden }
@@ -45,9 +50,11 @@ RSpec.describe ClusterApi::V1::UploadTokensController do
     subject { json }
 
     before do
-      get cluster_api_v1_upload_token_path(upload_token.token, params: {
-                                             client_ip: remote_ip
-                                           }), headers: token_auth(user)
+      get cluster_api_v1_upload_token_path(upload_token.token),
+          params:  {
+            client_ip: remote_ip
+          },
+          headers: token_auth(user)
     end
     it { is_expected.to include(:volume) }
   end
