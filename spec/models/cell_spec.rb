@@ -86,7 +86,7 @@ RSpec.describe Cell do
 
     context "with a json parsing error on the response" do
       before do
-        allow(JSON).to receive(:parse).and_raise(JSON::ParserError)
+        allow(JSON).to receive(:parse).and_raise JSON::ParserError
       end
 
       subject { cell.request(path: path, method: :get).second }
