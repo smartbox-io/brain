@@ -11,7 +11,7 @@ pipeline {
         }
       }
     }
-    stage("Build development image") {
+    stage("Build image") {
       steps {
         script {
           docker.build("smartbox/brain:${GIT_COMMIT}")
