@@ -2,6 +2,9 @@ pipeline {
   agent {
     label "docker"
   }
+  parameters {
+    string(name: "INTEGRATION_COMMIT", defaultValue: "master", description: "Integration project commit to build with")
+  }
   stages {
     stage("Retrieve build environment") {
       parallel {
@@ -80,7 +83,10 @@ pipeline {
     stage("Run integration tests") {
       steps {
         script {
-          build job: "integration/master"
+          build job: "integration/master", parameters: [
+            string(name: "INTEGRATION_COMMIT", value: INTEGRATION_COMMIT),
+            string(name: "BRAIN_COMMIT", value: GIT_COMMIT)
+          ]
         }
       }
     }
