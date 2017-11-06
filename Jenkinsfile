@@ -57,7 +57,7 @@ pipeline {
         stage("Integration tests") {
           steps {
             script {
-              build job: "integration/${INTEGRATION_COMMIT}", parameters: [
+              build job: "integration/${INTEGRATION_BRANCH}", parameters: [
                 string(name: "BRAIN_BRANCH", value: GIT_BRANCH),
                 string(name: "CELL_NUMBER", value: CELL_NUMBER)
               ]
