@@ -53,6 +53,16 @@ pipeline {
             sh("docker run --rm -t smartbox/brain:${GIT_COMMIT} bundle exec rspec --no-color")
           }
         }
+        stage("Run integration tests") {
+          steps {
+            script {
+              build job: "integration/master", parameters: [
+                string(name: "INTEGRATION_COMMIT", value: INTEGRATION_COMMIT),
+                string(name: "BRAIN_COMMIT", value: GIT_COMMIT)
+              ]
+            }
+          }
+        }
       }
     }
     stage ("Build production image") {
@@ -68,16 +78,6 @@ pipeline {
           docker.withRegistry("https://registry.hub.docker.com", "docker-hub-credentials") {
             docker.image("smartbox/brain:${GIT_COMMIT}-production").push("latest")
           }
-        }
-      }
-    }
-    stage("Run integration tests") {
-      steps {
-        script {
-          build job: "integration/master", parameters: [
-            string(name: "INTEGRATION_COMMIT", value: INTEGRATION_COMMIT),
-            string(name: "BRAIN_COMMIT", value: GIT_COMMIT)
-          ]
         }
       }
     }
