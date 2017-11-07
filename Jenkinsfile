@@ -7,6 +7,13 @@ pipeline {
     string(name: "CELL_NUMBER", defaultValue: "1", description: "Number of cells to deploy")
   }
   stages {
+    stage("Retrieve build environment") {
+      steps {
+        script {
+          sh("env")
+        }
+      }
+    }
     stage("Build image") {
       steps {
         script {
