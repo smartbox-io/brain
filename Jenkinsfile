@@ -64,7 +64,7 @@ pipeline {
     stage ("Publish production image to internal registry") {
       steps {
         script {
-          docker.withRegistry("http:///registry.smartbox.io:5000") {
+          docker.withRegistry("http://registry.smartbox.io:5000") {
             docker.image("smartbox/brain:${GIT_COMMIT}-production").push("${GIT_COMMIT}")
           }
         }
