@@ -61,6 +61,15 @@ pipeline {
         }
       }
     }
+    stage ("Publish production image to internal registry") {
+      steps {
+        script {
+          docker.withRegistry("registry.smartbox.io") {
+            docker.image("smartbox/brain:${GIT_COMMIT}-production").push("${GIT_COMMIT}")
+          }
+        }
+      }
+    }
     stage("Integration tests") {
       steps {
         script {
@@ -72,7 +81,7 @@ pipeline {
         }
       }
     }
-    stage("Publish production image") {
+    stage("Publish production image to public registry") {
       steps {
         script {
           docker.withRegistry("https://registry.hub.docker.com", "docker-hub-credentials") {
