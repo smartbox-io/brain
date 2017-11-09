@@ -11,9 +11,9 @@ pipeline {
     stage("Retrieve build environment") {
       steps {
         script {
-          if (BRAIN_COMMIT) {
-            GIT_COMMIT = BRAIN_COMMIT
-            sh("git checkout -fb integration ${BRAIN_COMMIT}")
+          if (params.BRAIN_COMMIT) {
+            GIT_COMMIT = params.BRAIN_COMMIT
+            sh("git checkout -fb integration ${params.BRAIN_COMMIT}")
           }
         }
         script {
@@ -85,7 +85,7 @@ pipeline {
           build job: "integration/master", parameters: [
             text(name: "COMMIT_MESSAGE", value: GIT_COMMIT_MESSAGE),
             string(name: "BRAIN_COMMIT", value: GIT_COMMIT),
-            string(name: "CELL_NUMBER", value: CELL_NUMBER)
+            string(name: "CELL_NUMBER", value: params.CELL_NUMBER)
           ]
         }
       }
