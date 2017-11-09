@@ -11,8 +11,8 @@ pipeline {
     stage("Retrieve build environment") {
       steps {
         script {
-          if (BRAIN_COMMIT) {
-            GIT_COMMIT = BRAIN_COMMIT
+          if (params.BRAIN_COMMIT) {
+            GIT_COMMIT = params.BRAIN_COMMIT
           }
         }
         script {
