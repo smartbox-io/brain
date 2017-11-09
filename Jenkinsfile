@@ -13,6 +13,7 @@ pipeline {
         script {
           if (BRAIN_COMMIT) {
             GIT_COMMIT = BRAIN_COMMIT
+            sh("git checkout -fb integration ${BRAIN_COMMIT}")
           }
         }
         script {
