@@ -72,7 +72,7 @@ pipeline {
       }
     }
     stage("Run integration tests") {
-      when { expression { !SKIP_INTEGRATION } }
+      when { expression { !params.SKIP_INTEGRATION } }
       steps {
         script {
           build job: "integration/master", parameters: [
@@ -84,7 +84,7 @@ pipeline {
       }
     }
     stage("Publish production image (public)") {
-      when { expression { !SKIP_INTEGRATION } }
+      when { expression { !params.SKIP_INTEGRATION } }
       steps {
         script {
           docker.withRegistry("https://registry.hub.docker.com", "docker-hub-credentials") {
