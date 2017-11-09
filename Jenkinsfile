@@ -3,12 +3,18 @@ pipeline {
     label "docker"
   }
   parameters {
-    string(name: "CELL_NUMBER", defaultValue: "1", description: "Integration. Number of cells to deploy")
+    string(name: "BRAIN_COMMIT", defaultValue: "", description: "Force revision to this specific commit")
     booleanParam(name: "SKIP_INTEGRATION", defaultValue: false, description: "Whether integration should be skipped")
+    string(name: "CELL_NUMBER", defaultValue: "1", description: "Integration. Number of cells to deploy")
   }
   stages {
     stage("Retrieve build environment") {
       steps {
+        script {
+          if (BRAIN_COMMIT) {
+            GIT_COMMIT = BRAIN_COMMIT
+          }
+        }
         script {
           GIT_COMMIT_MESSAGE = sh(returnStdout: true, script: "git rev-list --format=%B --max-count=1 ${GIT_COMMIT}").trim()
         }
