@@ -4,6 +4,7 @@ pipeline {
   }
   parameters {
     string(name: "CELL_NUMBER", defaultValue: "1", description: "Integration. Number of cells to deploy")
+    booleanParam(name: "SKIP_INTEGRATION", defaultValue: false, description: "Whether integration should be skipped")
   }
   stages {
     stage("Retrieve build environment") {
@@ -71,6 +72,7 @@ pipeline {
       }
     }
     stage("Run integration tests") {
+      when { expression { !SKIP_INTEGRATION } }
       steps {
         script {
           build job: "integration/master", parameters: [
@@ -82,6 +84,7 @@ pipeline {
       }
     }
     stage("Publish production image (public)") {
+      when { expression { !SKIP_INTEGRATION } }
       steps {
         script {
           docker.withRegistry("https://registry.hub.docker.com", "docker-hub-credentials") {
