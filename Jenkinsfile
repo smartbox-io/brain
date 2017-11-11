@@ -105,6 +105,7 @@ pipeline {
     always {
       sh("docker rmi -f --no-prune smartbox/brain:${GIT_COMMIT}")
       sh("docker rmi -f --no-prune smartbox/brain:${GIT_COMMIT}-production")
+      sh("docker rmi -f --no-prune registry.hub.docker.com/smartbox/brain:latest")
       sh("docker rmi -f --no-prune registry.smartbox.io/smartbox/brain:${GIT_COMMIT}")
     }
   }
