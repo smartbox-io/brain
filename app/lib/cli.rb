@@ -2,10 +2,10 @@ require "thor"
 require "io/console"
 
 class AdminCLI < Thor
-  desc "create USERNAME EMAIL", "Creates an admin user"
-  def create(username, email)
+  desc "create USERNAME EMAIL password", "Creates an admin user"
+  def create(username, email, password = nil)
     CLI.ask_admin_credentials unless Admin.count.zero?
-    password = CLI.ask_new_password
+    password ||= CLI.ask_new_password
     Admin.create! username: username,
                   email:    email,
                   password: password

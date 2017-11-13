@@ -35,6 +35,14 @@ RSpec.describe AdminCLI do
         expect(CLI).to have_received :ask_admin_credentials
       end
     end
+
+    context "when a password is provided" do
+      it "does not ask for a new password" do
+        allow(CLI).to receive :ask_new_password
+        admin_cli.create username, email, password
+        expect(CLI).not_to have_received :ask_new_password
+      end
+    end
   end
 
 end
