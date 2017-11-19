@@ -9,6 +9,19 @@ RSpec.describe ClusterApi::V1::Cells::DiscoveryController do
       cell: {
         uuid:              cell.uuid,
         fqdn:              cell.fqdn,
+        block_devices:     {
+          "sdb" => {
+            total_capacity: 2048,
+            partitions:     {
+              "sdb1" => {
+                total_capacity: 1024
+              },
+              "sdb2" => {
+                total_capacity: 1024
+              }
+            }
+          }
+        },
         volumes:           {
           "/data" => {
             total_capacity:     2048,

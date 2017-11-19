@@ -6,11 +6,11 @@
 # database schema. If you need to create the application database on another
 # system, you should be using db:schema:load, not running all the migrations
 # from scratch. The latter is a flawed and unsustainable approach (the more migrations
-# you"ll amass, the slower it"ll run and the greater likelihood for issues).
+# you'll amass, the slower it'll run and the greater likelihood for issues).
 #
-# It"s strongly recommended that you check this file into your version control system.
+# It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170529190434) do
+ActiveRecord::Schema.define(version: 20171119111819) do
 
   create_table "admins", force: :cascade do |t|
     t.string "username"
@@ -22,6 +22,24 @@ ActiveRecord::Schema.define(version: 20170529190434) do
     t.index ["email"], name: "index_admins_on_email"
     t.index ["inactive"], name: "index_admins_on_inactive"
     t.index ["username"], name: "index_admins_on_username", unique: true
+  end
+
+  create_table "cell_block_device_partitions", force: :cascade do |t|
+    t.integer "cell_block_device_id"
+    t.string "partition"
+    t.integer "total_capacity"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["cell_block_device_id"], name: "index_cell_block_device_partitions_on_cell_block_device_id"
+  end
+
+  create_table "cell_block_devices", force: :cascade do |t|
+    t.integer "cell_id"
+    t.string "device"
+    t.integer "total_capacity"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["cell_id"], name: "index_cell_block_devices_on_cell_id"
   end
 
   create_table "cell_tags", force: :cascade do |t|

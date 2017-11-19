@@ -1,4 +1,7 @@
 class Cell < ApplicationRecord
+  has_many :block_devices, class_name: "CellBlockDevice", dependent: :destroy
+  has_many :block_partitions, class_name: "CellBlockDevicePartition", through: :block_devices,
+           source: :partitions
   has_many :volumes, class_name: "CellVolume", dependent: :destroy
   has_many :object_backups, through: :volumes
   has_many :object_replicas, through: :volumes

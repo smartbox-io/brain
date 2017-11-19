@@ -8,6 +8,7 @@ class ClusterApi::V1::Cells::DiscoveryController < ClusterTokenlessApplicationCo
     end
     consolidate_cell cell: cell
     consolidate_volumes cell: cell
+    consolidate_block_devices cell: cell
     ok payload: {
       cell: {
         uuid:              cell.uuid,
@@ -34,6 +35,26 @@ class ClusterApi::V1::Cells::DiscoveryController < ClusterTokenlessApplicationCo
       cell.volumes.find_or_initialize_by(mountpoint: mountpoint).tap do |volume|
         volume.total_capacity = volume_information[:total_capacity]
         volume.available_capacity = volume_information[:available_capacity]
+      end.save
+    end
+  end
+
+  def consolidate_block_devices(cell:)
+    params[:cell][:block_devices].each do |device, device_information|
+      cell.block_devices.find_or_initialize_by(device: device).tap do |device_|
+        device_.total_capacity = device_information[:total_capacity]
+      end.save
+      consolidate_block_device_partitions cell:               cell,
+                                          device:             device,
+                                          device_information: device_information
+    end
+  end
+
+  def consolidate_block_device_partitions(cell:, device:, device_information:)
+    device_information[:partitions].each do |partition, partition_information|
+      device_ = cell.block_devices.find_by device: device
+      device_.partitions.find_or_initialize_by(partition: partition).tap do |partition_|
+        partition_.total_capacity = partition_information[:total_capacity]
       end.save
     end
   end
