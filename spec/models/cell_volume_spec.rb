@@ -1,6 +1,8 @@
 require "spec_helper"
 
 RSpec.describe CellVolume do
+  it { is_expected.to belong_to :cell_block_device }
+  it { is_expected.to have_one(:cell).through :cell_block_device }
   it {
     is_expected.to have_many(:object_backups).conditions(is_backup: true)
                                              .class_name("FullObjectReplica")
