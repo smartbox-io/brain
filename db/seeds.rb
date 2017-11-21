@@ -33,12 +33,24 @@ unless Rails.env.production?
     end
   end
 
-  notify "Creating volumes" do
+  notify "Creating block devices" do
     Cell.all.each do |cell|
       2.times do |i|
-        cell.volumes.find_or_create_by(mountpoint: "/volumes/volume#{i + 1}") do |volume|
-          volume.total_capacity = 2048
-          volume.available_capacity = 2048
+        cell.block_devices.find_or_create_by(device: "sd#{("a".ord + i).chr}") do |block_device|
+          block_device.total_capacity = 2048
+        end
+      end
+    end
+  end
+
+  notify "Creating volumes" do
+    Cell.all.each do |cell|
+      cell.block_devices.each do |block_device|
+        2.times do |i|
+          partition_name = "#{block_device.device}#{i + 1}"
+          block_device.volumes.find_or_create_by(partition: partition_name) do |volume|
+            volume.total_capacity = 2048
+          end
         end
       end
     end

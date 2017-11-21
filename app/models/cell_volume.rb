@@ -1,5 +1,6 @@
 class CellVolume < ApplicationRecord
-  belongs_to :cell
+  belongs_to :cell_block_device
+  has_one :cell, through: :cell_block_device
 
   has_many :object_backups, -> { where is_backup: true }, class_name: "FullObjectReplica"
   has_many :object_replicas, -> { where is_backup: false }, class_name: "FullObjectReplica"

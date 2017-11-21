@@ -24,15 +24,6 @@ ActiveRecord::Schema.define(version: 20171119111819) do
     t.index ["username"], name: "index_admins_on_username", unique: true
   end
 
-  create_table "cell_block_device_partitions", force: :cascade do |t|
-    t.integer "cell_block_device_id"
-    t.string "partition"
-    t.integer "total_capacity"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["cell_block_device_id"], name: "index_cell_block_device_partitions_on_cell_block_device_id"
-  end
-
   create_table "cell_block_devices", force: :cascade do |t|
     t.integer "cell_id"
     t.string "device"
@@ -52,13 +43,13 @@ ActiveRecord::Schema.define(version: 20171119111819) do
   end
 
   create_table "cell_volumes", force: :cascade do |t|
-    t.integer "cell_id"
-    t.string "mountpoint"
+    t.integer "cell_block_device_id"
+    t.string "partition"
     t.integer "total_capacity"
     t.integer "available_capacity"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["cell_id"], name: "index_cell_volumes_on_cell_id"
+    t.index ["cell_block_device_id"], name: "index_cell_volumes_on_cell_block_device_id"
   end
 
   create_table "cells", force: :cascade do |t|

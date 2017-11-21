@@ -4,11 +4,7 @@ RSpec.describe Cell do
   let(:cell) { FactoryBot.create :cell }
 
   it { is_expected.to have_many(:block_devices).class_name("CellBlockDevice").dependent(:destroy) }
-  it do
-    is_expected.to have_many(:block_device_partitions).class_name("CellBlockDevicePartition")
-      .through(:block_devices).source(:partitions)
-  end
-  it { is_expected.to have_many(:volumes).class_name("CellVolume").dependent(:destroy) }
+  it { is_expected.to have_many(:volumes).class_name("CellVolume").through(:block_devices) }
   it { is_expected.to have_many(:object_backups).through(:volumes) }
   it { is_expected.to have_many(:object_replicas).through(:volumes) }
   it { is_expected.to have_many(:sync_source_tokens).through(:volumes) }

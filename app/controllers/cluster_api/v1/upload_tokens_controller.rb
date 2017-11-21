@@ -4,7 +4,7 @@ class ClusterApi::V1::UploadTokensController < ClusterApplicationController
                                                 cell_volume: @cell.volumes,
                                                 remote_ip:   params[:client_ip]
     ok payload: {
-      volume: token.cell_volume.mountpoint
+      volume: token.cell_volume.partition
     }
   rescue ActiveRecord::RecordNotFound
     forbidden
