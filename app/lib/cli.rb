@@ -2,14 +2,25 @@ require "thor"
 require "io/console"
 
 class AdminCLI < Thor
+  # rubocop:disable Metrics/MethodLength
   desc "create USERNAME EMAIL password", "Creates an admin user"
   def create(username, email, password = nil)
     CLI.ask_admin_credentials unless Admin.count.zero?
     password ||= CLI.ask_new_password
-    Admin.create! username: username,
-                  email:    email,
-                  password: password
+    response, = BrainAdminApi.request(username: nil,
+                                      password: nil,
+                                      path:     "/admin-api/v1/admins",
+                                      method:   :post,
+                                      payload:  {
+                                        admin: {
+                                          username: username,
+                                          email:    email,
+                                          password: password
+                                        }
+                                      })
+    abort "Could not create admin user" unless response.code == 201
   end
+  # rubocop:enable Metrics/MethodLength
 
   desc "disable USERNAME", "Disables an admin user"
   def disable(username)

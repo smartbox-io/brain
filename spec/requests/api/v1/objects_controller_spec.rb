@@ -33,6 +33,16 @@ RSpec.describe Api::V1::ObjectsController do
     it "renders upload token information" do
       expect(json).to include(:upload_token, :cell)
     end
+
+    context "when the upload token cannot be created" do
+      before do
+        stub_current_user user
+        allow(user.upload_tokens).to receive(:create!).and_raise ActiveRecord::RecordInvalid
+        post api_v1_objects_path, headers: token_auth(user)
+      end
+
+      it { is_expected.to have_http_status :unprocessable_entity }
+    end
   end
 
   describe "#destroy" do

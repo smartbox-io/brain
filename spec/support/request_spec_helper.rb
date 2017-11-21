@@ -15,15 +15,13 @@ module RequestSpecHelper
     }
   end
 
-  def content_type(content_type)
-    { "Content-Type" => content_type }
-  end
-
-  def json_content_type
-    content_type "application/json"
-  end
-
   def ip(ip)
     { REMOTE_ADDR: ip }
   end
+
+  # rubocop:disable RSpec/AnyInstance
+  def stub_current_user(user)
+    allow_any_instance_of(ApplicationController).to receive(:current_user).and_return user
+  end
+  # rubocop:enable RSpec/AnyInstance
 end

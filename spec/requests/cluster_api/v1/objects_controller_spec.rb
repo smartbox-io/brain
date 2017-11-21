@@ -36,10 +36,9 @@ RSpec.describe ClusterApi::V1::ObjectsController do
   end
 
   def create(existing_object: true)
-    params = (existing_object ? existing_object_params : missing_object_params).to_json
+    params = existing_object ? existing_object_params : missing_object_params
     post cluster_api_v1_objects_path, params:  params,
                                       headers: token_auth(upload_token.user)
-                                        .merge(json_content_type)
                                         .merge(ip(upload_token.cell.ip_address))
   end
 

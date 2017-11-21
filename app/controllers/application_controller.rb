@@ -5,12 +5,16 @@ class ApplicationController < ActionController::API
 
   private
 
-  def ok(payload: nil)
+  def ok(payload: nil, status: :ok)
     if payload
-      render json: payload, status: :ok
+      render json: payload, status: status
     else
-      head :ok
+      head status
     end
+  end
+
+  def unprocessable_entity
+    head :unprocessable_entity
   end
 
   def forbidden

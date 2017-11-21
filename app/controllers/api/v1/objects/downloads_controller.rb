@@ -2,8 +2,8 @@ class Api::V1::Objects::DownloadsController < ApplicationController
   before_action :load_object
 
   def show
-    download_token = current_user.download_tokens.create object:    @object,
-                                                         remote_ip: request.remote_ip
+    download_token = current_user.download_tokens.create! object:    @object,
+                                                          remote_ip: request.remote_ip
 
     render json: {
       download_token: download_token.token,
@@ -11,6 +11,8 @@ class Api::V1::Objects::DownloadsController < ApplicationController
         ip_address: download_token.cell.public_ip_address
       }
     }
+  rescue ActiveRecord::RecordInvalid
+    unprocessable_entity
   end
 
   private

@@ -9,6 +9,24 @@ RSpec.describe AdminCLI do
   let(:username) { "username" }
   let(:password) { "password" }
   let(:email) { "user@example.com" }
+  let(:admin_params) do
+    {
+      username: nil,
+      password: nil,
+      path:     "/admin-api/v1/admins",
+      method:   :post,
+      payload:  {
+        admin: {
+          username: username,
+          email:    email,
+          password: password
+        }
+      }
+
+    }
+  end
+
+  before { allow(BrainAdminApi).to receive(:request).and_return [OpenStruct.new(code: 201), nil] }
 
   describe "#create" do
     context "when no admin user exists" do
@@ -21,7 +39,8 @@ RSpec.describe AdminCLI do
 
       it "creates a first admin user" do
         allow(CLI).to receive(:ask_new_password).and_return password
-        expect { admin_cli.create(username, email) }.to change { Admin.count }.by 1
+        admin_cli.create username, email
+        expect(BrainAdminApi).to have_received(:request).with admin_params
       end
     end
 

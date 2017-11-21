@@ -18,5 +18,15 @@ RSpec.describe Api::V1::Objects::DownloadsController do
 
       it { is_expected.to have_http_status :not_found }
     end
+
+    context "when the download token cannot be created" do
+      before do
+        stub_current_user user
+        allow(user.download_tokens).to receive(:create!).and_raise ActiveRecord::RecordInvalid
+        get api_v1_download_path(object_replica.object.uuid), headers: token_auth(user)
+      end
+
+      it { is_expected.to have_http_status :unprocessable_entity }
+    end
   end
 end

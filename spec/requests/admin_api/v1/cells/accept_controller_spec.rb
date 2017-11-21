@@ -6,11 +6,11 @@ RSpec.describe AdminApi::V1::Cells::AcceptController do
   let(:admin)           { FactoryBot.create :admin }
   let(:discovered_cell) { FactoryBot.create :cell, status: :discovered }
   let(:accepted_cell)   { FactoryBot.create :cell, status: :accepted }
-  let(:headers)         { { headers: basic_auth(admin) } }
+  let(:admin_auth)      { basic_auth admin }
 
   context "cell is in discovered status" do
     def accept
-      patch admin_api_v1_accept_path(discovered_cell.uuid), headers
+      patch admin_api_v1_accept_path(discovered_cell.uuid), headers: admin_auth
     end
 
     it "sets the cell in accepted status" do
@@ -27,7 +27,7 @@ RSpec.describe AdminApi::V1::Cells::AcceptController do
 
   context "cell is not in discovered status" do
     def accept
-      patch admin_api_v1_accept_path(accepted_cell.uuid), headers
+      patch admin_api_v1_accept_path(accepted_cell.uuid), headers: admin_auth
     end
 
     it "does not change cell status" do

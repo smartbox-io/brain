@@ -6,6 +6,18 @@ class AdminApplicationController < ActionController::API
 
   private
 
+  def ok(payload: nil, status: :ok)
+    if payload
+      render json: payload, status: status
+    else
+      head status
+    end
+  end
+
+  def unprocessable_entity
+    head :unprocessable_entity
+  end
+
   def forbidden
     head :forbidden
   end
@@ -17,6 +29,6 @@ class AdminApplicationController < ActionController::API
   end
 
   def admin_active?
-    !@admin.inactive || forbidden
+    forbidden if @admin.inactive
   end
 end

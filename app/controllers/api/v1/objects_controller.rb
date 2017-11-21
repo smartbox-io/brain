@@ -10,13 +10,15 @@ class Api::V1::ObjectsController < ApplicationController
   end
 
   def create
-    upload_token = current_user.upload_tokens.create remote_ip: request.remote_ip
+    upload_token = current_user.upload_tokens.create! remote_ip: request.remote_ip
     ok payload: {
       upload_token: upload_token.token,
       cell:         {
         ip_address: upload_token.cell.public_ip_address
       }
     }
+  rescue ActiveRecord::RecordInvalid
+    unprocessable_entity
   end
 
   def destroy
