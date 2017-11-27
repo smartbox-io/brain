@@ -7,11 +7,9 @@ class AdminCLI < Thor
   def create(username, email, password = nil)
     CLI.ask_admin_credentials unless Admin.count.zero?
     password ||= CLI.ask_new_password
-    response, = BrainAdminApi.request(username: nil,
-                                      password: nil,
-                                      path:     "/admin-api/v1/admins",
-                                      method:   :post,
-                                      payload:  {
+    response, = BrainAdminApi.request(path:    "/admin-api/v1/admins",
+                                      method:  :post,
+                                      payload: {
                                         admin: {
                                           username: username,
                                           email:    email,

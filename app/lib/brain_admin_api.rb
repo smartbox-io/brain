@@ -2,7 +2,8 @@ class BrainAdminApi
   require "net/http"
 
   # rubocop:disable Metrics/ParameterLists
-  def self.request(username:, password:, path:, method: :get, payload: nil, query: nil)
+  def self.request(username: ENV["BRAIN_ADMIN_USERNAME"], password: ENV["BRAIN_ADMIN_PASSWORD"],
+                   path:, method: :get, payload: nil, query: nil)
     response = perform_request username: username, password: password, path: path, method: method,
                                payload: payload, query: query
     json_response = begin

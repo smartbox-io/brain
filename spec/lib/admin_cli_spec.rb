@@ -11,11 +11,9 @@ RSpec.describe AdminCLI do
   let(:email) { "user@example.com" }
   let(:admin_params) do
     {
-      username: nil,
-      password: nil,
-      path:     "/admin-api/v1/admins",
-      method:   :post,
-      payload:  {
+      path:    "/admin-api/v1/admins",
+      method:  :post,
+      payload: {
         admin: {
           username: username,
           email:    email,
