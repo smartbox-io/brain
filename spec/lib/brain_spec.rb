@@ -6,7 +6,6 @@ RSpec.describe Brain do
   let(:object) { FactoryBot.create :full_object }
   let(:volume) { FactoryBot.create :cell_volume }
   let(:other_volume) { FactoryBot.create :cell_volume }
-  let(:sync_token) { FactoryBot.create :sync_token }
 
   describe ".schedule_sync" do
     def schedule_sync
@@ -48,6 +47,7 @@ RSpec.describe Brain do
       before do
         allow(object).to receive(:desired_replica_number).and_return 2
         allow(object).to receive(:current_replica_number).and_return 1
+        allow(object).to receive(:candidate_volumes).and_return [other_volume]
       end
 
       it "schedules a sync" do
@@ -55,28 +55,6 @@ RSpec.describe Brain do
         converge_object
         expect(described_class).to have_received(:schedule_sync).with(params).once
       end
-    end
-  end
-
-  describe ".sync_object" do
-    let(:request_params) do
-      {
-        path:    "/cluster-api/v1/objects",
-        method:  :post,
-        payload: {
-          sync_token: sync_token.token
-        }
-      }
-    end
-
-    def sync_object
-      described_class.sync_object sync_token: sync_token
-    end
-
-    it "makes a request to the target cell" do
-      allow(sync_token.target_cell).to receive(:request).with(request_params)
-      sync_object
-      expect(sync_token.target_cell).to have_received(:request).with(request_params)
     end
   end
 

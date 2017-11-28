@@ -11,21 +11,15 @@ RSpec.describe ClusterApi::V1::Cells::DiscoveryController do
         fqdn:              cell.fqdn,
         block_devices:     {
           "sdb" => {
-            total_capacity: 2048,
+            total_capacity: 500.gigabytes,
             partitions:     {
               "sdb1" => {
-                total_capacity: 1024
+                total_capacity: 250.gigabytes
               },
               "sdb2" => {
-                total_capacity: 1024
+                total_capacity: 250.gigabytes
               }
             }
-          }
-        },
-        volumes:           {
-          "/data" => {
-            total_capacity:     2048,
-            available_capacity: 2048
           }
         },
         public_ip_address: IPAddr.new(rand(2**32), Socket::AF_INET).to_s

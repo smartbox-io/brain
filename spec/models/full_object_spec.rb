@@ -56,6 +56,6 @@ RSpec.describe FullObject do
 
     subject { object.candidate_volumes.count }
 
-    it { is_expected.to eq 1 }
+    it { is_expected.to be > 0 }
   end
 end

@@ -37,7 +37,7 @@ unless Rails.env.production?
     Cell.all.each do |cell|
       2.times do |i|
         cell.block_devices.find_or_create_by(device: "sd#{("a".ord + i).chr}") do |block_device|
-          block_device.total_capacity = 2048
+          block_device.total_capacity = 500.gigabytes
         end
       end
     end
@@ -49,7 +49,7 @@ unless Rails.env.production?
         2.times do |i|
           partition_name = "#{block_device.device}#{i + 1}"
           block_device.volumes.find_or_create_by(partition: partition_name) do |volume|
-            volume.total_capacity = 2048
+            volume.total_capacity = 250.gigabytes
           end
         end
       end

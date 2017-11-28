@@ -42,7 +42,7 @@ Rails.application.routes.draw do
       resources :admins, only: %i[index create update]
       resources :cells, only: :index, param: :uuid do
         member do
-          resource :accept, only: :update, controller: "cells/accept"
+          resource :accept, only: :create, controller: "cells/accept"
         end
       end
     end

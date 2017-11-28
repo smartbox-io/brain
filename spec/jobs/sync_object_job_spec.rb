@@ -5,10 +5,10 @@ RSpec.describe SyncObjectJob do
   let(:sync_token) { FactoryBot.create :sync_token }
 
   describe "#perform" do
-    it "calls to Brain.sync_object" do
-      allow(Brain).to receive(:sync_object).with sync_token: sync_token
+    it "calls to sync_object on the sync_token" do
+      allow(sync_token).to receive :sync_object
       described_class.perform_now sync_token: sync_token
-      expect(Brain).to have_received(:sync_object).with(sync_token: sync_token).once
+      expect(sync_token).to have_received(:sync_object).once
     end
   end
 

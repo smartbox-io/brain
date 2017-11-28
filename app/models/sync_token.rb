@@ -8,4 +8,8 @@ class SyncToken < ApplicationRecord
   belongs_to :object, class_name: "FullObject", foreign_key: :full_object_id
 
   enum status: %i[scheduled syncing done]
+
+  def sync_object
+    target_cell.remote.sync_object sync_token: self
+  end
 end

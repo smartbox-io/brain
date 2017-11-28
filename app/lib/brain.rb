@@ -26,12 +26,4 @@ class Brain
     true
   end
   # rubocop:enable Metrics/MethodLength
-
-  def self.sync_object(sync_token:)
-    sync_token.target_cell.request path:    "/cluster-api/v1/objects",
-                                   method:  :post,
-                                   payload: {
-                                     sync_token: sync_token.token
-                                   }
-  end
 end

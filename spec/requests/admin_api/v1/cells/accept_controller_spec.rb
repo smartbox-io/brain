@@ -10,7 +10,12 @@ RSpec.describe AdminApi::V1::Cells::AcceptController do
 
   context "cell is in discovered status" do
     def accept
-      patch admin_api_v1_accept_path(discovered_cell.uuid), headers: admin_auth
+      post admin_api_v1_accept_path(discovered_cell.uuid),
+           params: {
+             cell: {
+               volumes: discovered_cell.volumes.pluck(:partition)
+             }
+           }, headers: admin_auth
     end
 
     it "sets the cell in accepted status" do
@@ -27,7 +32,12 @@ RSpec.describe AdminApi::V1::Cells::AcceptController do
 
   context "cell is not in discovered status" do
     def accept
-      patch admin_api_v1_accept_path(accepted_cell.uuid), headers: admin_auth
+      post admin_api_v1_accept_path(accepted_cell.uuid),
+           params: {
+             cell: {
+               volumes: []
+             }
+           }, headers: admin_auth
     end
 
     it "does not change cell status" do

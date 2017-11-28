@@ -27,7 +27,9 @@ ActiveRecord::Schema.define(version: 20171119111819) do
   create_table "cell_block_devices", force: :cascade do |t|
     t.integer "cell_id"
     t.string "device"
-    t.integer "total_capacity"
+    t.integer "total_capacity", limit: 8
+    t.integer "available_capacity", limit: 8
+    t.integer "status"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["cell_id"], name: "index_cell_block_devices_on_cell_id"
@@ -45,8 +47,8 @@ ActiveRecord::Schema.define(version: 20171119111819) do
   create_table "cell_volumes", force: :cascade do |t|
     t.integer "cell_block_device_id"
     t.string "partition"
-    t.integer "total_capacity"
-    t.integer "available_capacity"
+    t.integer "total_capacity", limit: 8
+    t.integer "available_capacity", limit: 8
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["cell_block_device_id"], name: "index_cell_volumes_on_cell_block_device_id"

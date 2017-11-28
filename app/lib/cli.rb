@@ -27,24 +27,27 @@ class AdminCLI < Thor
 end
 
 class CellCLI < Thor
-  # rubocop:disable Metrics/ParameterLists
+  # rubocop:disable Metrics/MethodLength
   desc "ls", "List cells"
   def ls
     table = Terminal::Table.new(headings: ["UUID", "FQDN", "IP Address", "Public IP Address",
-                                           "Status", "Created at"]) do |t|
-      Cell.pluck(:uuid, :fqdn, :ip_address, :public_ip_address, :status, :created_at)
-          .each do |uuid, fqdn, ip_address, public_ip_address, status, created_at|
-        t << [uuid, fqdn, ip_address, public_ip_address, status, created_at]
+                                           "Status", "Block Devices", "Created at"]) do |t|
+      Cell.all.each do |cell|
+        block_devices = cell.block_devices.map do |block_device|
+          ["#{block_device.device}(#{block_device.total_capacity / 1.gigabyte})"]
+        end.join ", "
+        t << [cell.uuid, cell.fqdn, cell.ip_address, cell.public_ip_address, cell.status,
+              block_devices, cell.created_at]
       end
     end
     puts table
   end
-  # rubocop:enable Metrics/ParameterLists
+  # rubocop:enable Metrics/MethodLength
 
-  desc "accept UUID", "Accept cell with uuid UUID, so it can join the cluster"
-  def accept(uuid)
+  desc "accept UUID VOLUME1 VOLUME2...", "Accept cell with uuid UUID, so it can join the cluster"
+  def accept(uuid, *volumes)
     cell = Cell.find_by! uuid: uuid
-    if cell.accept
+    if cell.accept volumes: volumes
       puts "Cell accepted successfully"
     else
       abort "Cell wasn't accepted successfully (was it already accepted?)"
