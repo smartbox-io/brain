@@ -6,7 +6,6 @@ RSpec.describe CellCLI do
   subject(:cell_cli) { described_class.new }
 
   let(:cell) { FactoryBot.create :cell }
-  let(:discovered_cell) { FactoryBot.create :cell, status: :discovered }
 
   before { cell }
 
@@ -17,30 +16,41 @@ RSpec.describe CellCLI do
   end
 
   describe "#accept" do
-    context "with a discovered cell" do
-      before { with_suppressed_output }
+    before { with_suppressed_output }
+
+    let(:acceptance_params) do
+      {
+        path:    "/admin-api/v1/cells/#{cell.uuid}/accept",
+        method:  :post,
+        payload: {
+          cell: {
+            block_devices: []
+          }
+        }
+      }
+    end
+
+    context "with a successful request" do
+      before do
+        allow(BrainAdminApi).to receive(:request).once.with(acceptance_params)
+                                                 .and_return OpenStruct.new(code: 200)
+      end
 
       it "accepts a cell" do
-        expect { cell_cli.accept discovered_cell.uuid }.to change { discovered_cell.reload.status }
-          .from("discovered").to("accepted")
+        cell_cli.accept cell.uuid
+        expect(BrainAdminApi).to have_received(:request).once.with acceptance_params
+      end
+
+      it "does not return with an error status" do
+        expect { cell_cli.accept cell.uuid }.not_to raise_exception
       end
     end
 
-    context "with an already accepted cell" do
-      before { with_suppressed_output }
-
-      # rubocop:disable RSpec/ExampleLength
-      # rubocop:disable Lint/HandleExceptions
-      it "does not accept the cell" do
-        expect do
-          begin
-            cell_cli.accept cell.uuid
-          rescue SystemExit
-          end
-        end.not_to(change { cell.reload.status })
+    context "with an unsuccessful request" do
+      before do
+        allow(BrainAdminApi).to receive(:request).once.with(acceptance_params)
+                                                 .and_return OpenStruct.new(code: 200)
       end
-      # rubocop:enable Lint/HandleExceptions
-      # rubocop:enable RSpec/ExampleLength
 
       it "returns with an error status" do
         begin

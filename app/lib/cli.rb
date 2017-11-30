@@ -47,12 +47,14 @@ class CellCLI < Thor
   desc "accept UUID BLOCK_DEVICE1 BLOCK_DEVICE2...", "Accept cell with uuid UUID, so it can join the
         cluster"
   def accept(uuid, *block_devices)
-    cell = Cell.find_by! uuid: uuid
-    if cell.accept block_devices: block_devices
-      puts "Cell accepted successfully"
-    else
-      abort "Cell wasn't accepted successfully (was it already accepted?)"
-    end
+    response, = BrainAdminApi.request(path:    "/admin-api/v1/cells/#{uuid}/accept",
+                                      method:  :post,
+                                      payload: {
+                                        cell: {
+                                          block_devices: block_devices
+                                        }
+                                      })
+    abort "Could not accept cell" unless response.code == 200
   end
 
   desc "decomission UUID", "Decomissions cell with uuid UUID"
