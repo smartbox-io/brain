@@ -2,11 +2,12 @@ require "spec_helper"
 require "brain"
 
 RSpec.describe CellApi do
+  let(:cell)     { FactoryBot.create :cell }
+  let(:cell_api) { described_class.new cell: cell }
+
   describe "#request" do
-    let(:cell)     { FactoryBot.create :cell }
-    let(:cell_api) { described_class.new cell: cell }
-    let(:path)     { "/some/path" }
-    let(:payload)  { { some: "payload" } }
+    let(:path)    { "/some/path" }
+    let(:payload) { { some: "payload" } }
 
     before do
       # rubocop:disable RSpec/AnyInstance
@@ -74,6 +75,28 @@ RSpec.describe CellApi do
           cell_api.request path: path, method: :get, &b
         end.to yield_with_args(anything, some: "json")
       end
+    end
+  end
+
+  describe ".accept_block_devices" do
+    let(:request_params) do
+      {
+        path:    "/admin-api/v1/block-devices",
+        method:  :patch,
+        payload: {
+          block_devices: Hash[
+            cell.block_devices.map do |block_device|
+              [block_device.device, status: :accepted]
+            end
+          ]
+        }
+      }
+    end
+
+    it "makes a request to the cell" do
+      allow(cell_api).to receive(:request).with request_params
+      cell_api.accept_block_devices block_devices: cell.block_devices.pluck(:device)
+      expect(cell_api).to have_received(:request).once.with request_params
     end
   end
 

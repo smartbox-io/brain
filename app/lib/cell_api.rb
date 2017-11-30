@@ -3,8 +3,16 @@ class CellApi
     @cell = cell
   end
 
-  def accept(volumes:)
-    # TODO
+  def accept_block_devices(block_devices:)
+    request path:    "/admin-api/v1/block-devices",
+            method:  :patch,
+            payload: {
+              block_devices: Hash[
+                block_devices.map do |block_device|
+                  [block_device, status: :accepted]
+                end
+              ]
+            }
   end
 
   def sync_object(sync_token:)

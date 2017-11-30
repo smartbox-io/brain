@@ -44,10 +44,11 @@ class CellCLI < Thor
   end
   # rubocop:enable Metrics/MethodLength
 
-  desc "accept UUID VOLUME1 VOLUME2...", "Accept cell with uuid UUID, so it can join the cluster"
-  def accept(uuid, *volumes)
+  desc "accept UUID BLOCK_DEVICE1 BLOCK_DEVICE2...", "Accept cell with uuid UUID, so it can join the
+        cluster"
+  def accept(uuid, *block_devices)
     cell = Cell.find_by! uuid: uuid
-    if cell.accept volumes: volumes
+    if cell.accept block_devices: block_devices
       puts "Cell accepted successfully"
     else
       abort "Cell wasn't accepted successfully (was it already accepted?)"

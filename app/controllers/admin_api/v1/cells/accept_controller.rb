@@ -1,7 +1,7 @@
 class AdminApi::V1::Cells::AcceptController < AdminApplicationController
   def create
     cell = Cell.find_by! uuid: params[:uuid]
-    if cell.accept volumes: volumes_params[:volumes]
+    if cell.accept block_devices: block_devices_params[:block_devices]
       head :ok
     else
       forbidden
@@ -10,7 +10,7 @@ class AdminApi::V1::Cells::AcceptController < AdminApplicationController
 
   private
 
-  def volumes_params
-    params.require(:cell).permit volumes: []
+  def block_devices_params
+    params.require(:cell).permit block_devices: []
   end
 end

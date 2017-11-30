@@ -1,7 +1,8 @@
 FactoryBot.define do
   factory :cell_block_device do
     cell
-    status             :accepted
+    sequence(:device)  { |n| "some-device-#{n + 1}" }
+    status             :discovered
     total_capacity     { 500.gigabytes }
     available_capacity { 500.gigabytes }
     after(:create) do |cell_block_device|

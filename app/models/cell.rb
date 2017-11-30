@@ -8,13 +8,27 @@ class Cell < ApplicationRecord
 
   enum status: %i[discovered accepted healthy unhealthy]
 
-  def accept(volumes:)
+  def accept(block_devices: [])
     return false if status != "discovered"
-    remote.accept volumes: volumes
     update_column :status, :accepted
+    accept_block_devices block_devices: block_devices
   end
 
   def remote
     @remote ||= CellApi.new cell: self
+  end
+
+  private
+
+  def accept_block_devices(block_devices:)
+    return true if block_devices.blank?
+    response, = remote.accept_block_devices block_devices: block_devices
+    if response.code == 202
+      self.block_devices.where(device: block_devices).update_all(
+        status: CellBlockDevice.statuses[:accepted]
+      )
+      return true
+    end
+    false
   end
 end
