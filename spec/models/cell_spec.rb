@@ -54,7 +54,7 @@ RSpec.describe Cell do
       it { is_expected.to be true }
 
       it "updates the block devices statuses" do
-        expect { acceptance }.to change { cell.block_devices.accepted.reload.count }
+        expect { acceptance }.to(change { cell.block_devices.accepted.reload.count })
       end
     end
 
