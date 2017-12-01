@@ -22,7 +22,7 @@ class FullObject < ApplicationRecord
   end
 
   def candidate_volumes
-    CellVolume.cell_healthy - cell_volumes
+    CellVolume.block_device_healthy.cell_healthy - cell_volumes
   end
 
   private

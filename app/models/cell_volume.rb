@@ -12,4 +12,8 @@ class CellVolume < ApplicationRecord
 
   scope :cell_healthy, -> { cell_status :healthy }
   scope :cell_status, ->(status) { includes(:cell).where cells: { status: status } }
+  scope :block_device_healthy, -> { block_device_status :healthy }
+  scope :block_device_status, (lambda do |status|
+    includes(:cell_block_device).where cell_block_devices: { status: status }
+  end)
 end
