@@ -25,6 +25,8 @@ Rails.application.routes.draw do
         end
         member do
           resource :heartbeat, only: :update, controller: "cells/heartbeat"
+          resource :block_devices, path: "block-devices", only: :update,
+            controller: "cells/block_devices"
         end
       end
       resources :objects, only: :create, param: :uuid do
