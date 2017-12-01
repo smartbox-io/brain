@@ -7,5 +7,6 @@ class CreateCellVolumes < ActiveRecord::Migration[5.1]
       t.integer :available_capacity, limit: 8
       t.timestamps
     end
+    add_index :cell_volumes, [:cell_block_device_id, :partition], unique: true
   end
 end

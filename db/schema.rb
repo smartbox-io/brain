@@ -32,6 +32,7 @@ ActiveRecord::Schema.define(version: 20171119111819) do
     t.integer "status"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["cell_id", "device"], name: "index_cell_block_devices_on_cell_id_and_device", unique: true
     t.index ["cell_id"], name: "index_cell_block_devices_on_cell_id"
   end
 
@@ -51,6 +52,7 @@ ActiveRecord::Schema.define(version: 20171119111819) do
     t.integer "available_capacity", limit: 8
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["cell_block_device_id", "partition"], name: "index_cell_volumes_on_cell_block_device_id_and_partition", unique: true
     t.index ["cell_block_device_id"], name: "index_cell_volumes_on_cell_block_device_id"
   end
 
@@ -62,7 +64,7 @@ ActiveRecord::Schema.define(version: 20171119111819) do
     t.integer "status"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["uuid"], name: "index_cells_on_uuid"
+    t.index ["uuid"], name: "index_cells_on_uuid", unique: true
   end
 
   create_table "download_tokens", force: :cascade do |t|
@@ -75,7 +77,7 @@ ActiveRecord::Schema.define(version: 20171119111819) do
     t.datetime "updated_at", null: false
     t.index ["cell_volume_id"], name: "index_download_tokens_on_cell_volume_id"
     t.index ["full_object_id"], name: "index_download_tokens_on_full_object_id"
-    t.index ["token"], name: "index_download_tokens_on_token"
+    t.index ["token"], name: "index_download_tokens_on_token", unique: true
     t.index ["user_id"], name: "index_download_tokens_on_user_id"
   end
 
@@ -137,7 +139,7 @@ ActiveRecord::Schema.define(version: 20171119111819) do
     t.index ["source_cell_volume_id"], name: "index_sync_tokens_on_source_cell_volume_id"
     t.index ["status"], name: "index_sync_tokens_on_status"
     t.index ["target_cell_volume_id"], name: "index_sync_tokens_on_target_cell_volume_id"
-    t.index ["token"], name: "index_sync_tokens_on_token"
+    t.index ["token"], name: "index_sync_tokens_on_token", unique: true
   end
 
   create_table "tags", force: :cascade do |t|
@@ -157,7 +159,7 @@ ActiveRecord::Schema.define(version: 20171119111819) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["cell_volume_id"], name: "index_upload_tokens_on_cell_volume_id"
-    t.index ["token"], name: "index_upload_tokens_on_token"
+    t.index ["token"], name: "index_upload_tokens_on_token", unique: true
     t.index ["user_id"], name: "index_upload_tokens_on_user_id"
   end
 

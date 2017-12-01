@@ -8,5 +8,6 @@ class CreateCellBlockDevices < ActiveRecord::Migration[5.1]
       t.integer :status
       t.timestamps
     end
+    add_index :cell_block_devices, [:cell_id, :device], unique: true
   end
 end
