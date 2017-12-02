@@ -4,8 +4,8 @@ class ClusterApi::V1::Cells::BlockDevicesController < ClusterTokenlessApplicatio
       @cell.block_devices.where(device: block_device[:device]).update_all(
         status: block_device[:status]
       )
-      block_device[:partitions].each do |partition|
-        @cell.volumes.where(partition: partition[:partition]).update_all status: partition[:status]
+      block_device[:volumes].each do |volume|
+        @cell.volumes.where(volume: volume[:volume]).update_all status: volume[:status]
       end
     end
     ok
@@ -14,6 +14,6 @@ class ClusterApi::V1::Cells::BlockDevicesController < ClusterTokenlessApplicatio
   private
 
   def block_devices_params
-    params.require(:cell).permit block_devices: [:device, :status, partitions: %i[partition status]]
+    params.require(:cell).permit block_devices: [:device, :status, volumes: %i[volume status]]
   end
 end

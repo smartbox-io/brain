@@ -47,13 +47,13 @@ ActiveRecord::Schema.define(version: 20171119111819) do
 
   create_table "cell_volumes", force: :cascade do |t|
     t.integer "cell_block_device_id"
-    t.string "partition"
+    t.string "volume"
     t.integer "total_capacity", limit: 8
     t.integer "available_capacity", limit: 8
     t.integer "status"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["cell_block_device_id", "partition"], name: "index_cell_volumes_on_cell_block_device_id_and_partition", unique: true
+    t.index ["cell_block_device_id", "volume"], name: "index_cell_volumes_on_cell_block_device_id_and_volume", unique: true
     t.index ["cell_block_device_id"], name: "index_cell_volumes_on_cell_block_device_id"
   end
 

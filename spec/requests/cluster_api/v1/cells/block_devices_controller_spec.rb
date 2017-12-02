@@ -9,30 +9,30 @@ RSpec.describe ClusterApi::V1::Cells::BlockDevicesController do
       cell: {
         block_devices: [
           {
-            device:     :sdb,
-            status:     :healthy,
-            partitions: [
+            device:  :sdb,
+            status:  :healthy,
+            volumes: [
               {
-                partition: :sdb1,
-                status:    :healthy
+                volume: :sdb1,
+                status: :healthy
               },
               {
-                partition: :sdb2,
-                status:    :healthy
+                volume: :sdb2,
+                status: :healthy
               }
             ]
           },
           {
-            device:     :sdc,
-            status:     :healthy,
-            partitions: [
+            device:  :sdc,
+            status:  :healthy,
+            volumes: [
               {
-                partition: :sdc1,
-                status:    :healthy
+                volume: :sdc1,
+                status: :healthy
               },
               {
-                partition: :sdc2,
-                status:    :healthy
+                volume: :sdc2,
+                status: :healthy
               }
             ]
           }

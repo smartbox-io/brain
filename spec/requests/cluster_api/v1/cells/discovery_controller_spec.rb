@@ -12,7 +12,7 @@ RSpec.describe ClusterApi::V1::Cells::DiscoveryController do
         block_devices:     {
           "sdb" => {
             total_capacity: 500.gigabytes,
-            partitions:     {
+            volumes:        {
               "sdb1" => {
                 total_capacity: 250.gigabytes
               },

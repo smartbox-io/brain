@@ -47,8 +47,8 @@ unless Rails.env.production?
     Cell.all.each do |cell|
       cell.block_devices.each do |block_device|
         2.times do |i|
-          partition_name = "#{block_device.device}#{i + 1}"
-          block_device.volumes.find_or_create_by(partition: partition_name) do |volume|
+          volume_name = "#{block_device.device}#{i + 1}"
+          block_device.volumes.find_or_create_by(volume: volume_name) do |volume|
             volume.total_capacity = 250.gigabytes
           end
         end

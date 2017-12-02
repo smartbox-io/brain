@@ -41,10 +41,10 @@ class ClusterApi::V1::Cells::DiscoveryController < ClusterTokenlessApplicationCo
   end
 
   def consolidate_volumes(cell:, device:, device_information:)
-    device_information[:partitions].each do |partition, partition_information|
+    device_information[:volumes].each do |volume, volume_information|
       device_ = cell.block_devices.find_by device: device
-      device_.volumes.find_or_initialize_by(partition: partition).tap do |volume|
-        volume.total_capacity = partition_information[:total_capacity]
+      device_.volumes.find_or_initialize_by(volume: volume).tap do |volume_|
+        volume_.total_capacity = volume_information[:total_capacity]
       end.save
     end
   end

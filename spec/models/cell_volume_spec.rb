@@ -31,7 +31,7 @@ RSpec.describe CellVolume do
 
     let(:cell_volume_data) do
       {
-        "partition"          => cell_volume.partition,
+        "volume"             => cell_volume.volume,
         "total_capacity"     => cell_volume.total_capacity,
         "available_capacity" => cell_volume.available_capacity,
         "status"             => cell_volume.status,

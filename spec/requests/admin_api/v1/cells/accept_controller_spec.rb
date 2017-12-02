@@ -13,7 +13,7 @@ RSpec.describe AdminApi::V1::Cells::AcceptController do
       post admin_api_v1_accept_path(discovered_cell.uuid),
            params: {
              cell: {
-               volumes: discovered_cell.volumes.pluck(:partition)
+               volumes: discovered_cell.volumes.pluck(:volume)
              }
            }, headers: admin_auth
     end
