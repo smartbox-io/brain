@@ -32,7 +32,7 @@ class ClusterApi::V1::Cells::DiscoveryController < ClusterTokenlessApplicationCo
   def consolidate_block_devices(cell:)
     params[:cell][:block_devices].each do |block_device|
       cell.block_devices.find_or_initialize_by(device: block_device[:device]).tap do |device_|
-        device_.total_capacity = device[:total_capacity]
+        device_.total_capacity = block_device[:total_capacity]
       end.save
       consolidate_volumes cell: cell, block_device: block_device
     end
