@@ -18,6 +18,10 @@ class Cell < ApplicationRecord
     @remote ||= CellApi.new cell: self
   end
 
+  def serializable_hash(options = nil)
+    super (options || {}).merge except: %i[id], include: %i[block_devices]
+  end
+
   private
 
   def accept_block_devices(block_devices:)

@@ -68,4 +68,23 @@ RSpec.describe Cell do
       it { is_expected.to be false }
     end
   end
+
+  describe "#serializable_hash" do
+    subject { cell.serializable_hash }
+
+    let(:cell_data) do
+      {
+        "uuid"              => cell.uuid,
+        "fqdn"              => cell.fqdn,
+        "ip_address"        => cell.ip_address,
+        "public_ip_address" => cell.public_ip_address,
+        "status"            => cell.status,
+        "block_devices"     => cell.block_devices.as_json,
+        "created_at"        => be_a(Time),
+        "updated_at"        => be_a(Time)
+      }
+    end
+
+    it { is_expected.to match cell_data }
+  end
 end
