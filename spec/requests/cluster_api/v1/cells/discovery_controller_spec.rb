@@ -9,19 +9,22 @@ RSpec.describe ClusterApi::V1::Cells::DiscoveryController do
       cell: {
         uuid:              cell.uuid,
         fqdn:              cell.fqdn,
-        block_devices:     {
-          "sdb" => {
+        block_devices:     [
+          {
+            device:         :sdb,
             total_capacity: 500.gigabytes,
-            volumes:        {
-              "sdb1" => {
+            volumes:        [
+              {
+                volume:         :sdb1,
                 total_capacity: 250.gigabytes
               },
-              "sdb2" => {
+              {
+                volume:         :sdb2,
                 total_capacity: 250.gigabytes
               }
-            }
+            ]
           }
-        },
+        ],
         public_ip_address: IPAddr.new(rand(2**32), Socket::AF_INET).to_s
       }
     }
