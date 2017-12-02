@@ -50,6 +50,7 @@ ActiveRecord::Schema.define(version: 20171119111819) do
     t.string "partition"
     t.integer "total_capacity", limit: 8
     t.integer "available_capacity", limit: 8
+    t.integer "status"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["cell_block_device_id", "partition"], name: "index_cell_volumes_on_cell_block_device_id_and_partition", unique: true

@@ -16,4 +16,6 @@ class CellVolume < ApplicationRecord
   scope :block_device_status, (lambda do |status|
     includes(:cell_block_device).where cell_block_devices: { status: status }
   end)
+
+  enum status: %i[discovered accepted healthy unhealthy]
 end

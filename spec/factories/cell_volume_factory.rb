@@ -4,5 +4,6 @@ FactoryBot.define do
     sequence(:partition) { |n| "#{cell_block_device.device}-#{n + 1}" }
     total_capacity       { 250.gigabytes }
     available_capacity   { 250.gigabytes }
+    status               :healthy
   end
 end
